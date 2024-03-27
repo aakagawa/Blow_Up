@@ -48,27 +48,50 @@ void ofApp::setupWebcam(){
 }
 
 void ofApp::processFrame(ofPixels pixels){
+
     pixels.resize(960, 540); // Adjust resizing directly on ofPixels
     yolo.setInput(pixels);
     yolo.update();
+
+    // Retrieve and log detected objects
+    auto detectedObjects = yolo.getObjects();
+    for(auto& object : detectedObjects){
+        std::string logMessage = "Detected: " + object.ident.text + " with confidence: " + ofToString(object.confidence);
+        ofLogNotice("Object Detection") << logMessage;
+
+        // Example additional action: draw bounding boxes or labels on the display based on object.bbox
+    }
 }
 
 void ofApp::updateGridDimensions(){
     float prob = ofRandom(1.0);
     if(prob < maxGridProbability){
-        gridRows = gridCols = 255; // Maximum grid size with given probability
+        gridRows = gridCols = 256; // Maximum grid size with given probability
     } else {
         gridRows = ofRandom(1, 256);
         gridCols = ofRandom(1, 256);
     }
+    
+    // Log the new grid dimensions
+    // ofLogNotice() << "Updated Grid Dimensions: Rows = " << gridRows << ", Cols = " << gridCols;
 }
 
+
 void ofApp::update(){
+    static int frameCount = 0; 
+    int processEveryNthFrame = 3; 
     webcam.update();
+
     if(webcam.isFrameNew()){
-        // Use std::async for asynchronous processing
-        if(futureResult.valid() ? futureResult.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready : true){
-            futureResult = std::async(std::launch::async, &ofApp::processFrame, this, webcam.getPixels());
+        // Skip frames to reduce the frame rate
+        if(++frameCount % processEveryNthFrame == 0){
+            // Reset the frame counter in a safe range to avoid overflow
+            frameCount = 0;
+
+            // Process the frame
+            if(futureResult.valid() ? futureResult.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready : true){
+                futureResult = std::async(std::launch::async, &ofApp::processFrame, this, webcam.getPixels());
+            }
         }
     }
 
@@ -80,45 +103,69 @@ void ofApp::update(){
 }
 
 void ofApp::displayGrid(){
-    ofPixels pixels = webcam.getPixels();
+    ofPixels & pixels = webcam.getPixels();
     pixels.resize(ofGetWidth(), ofGetHeight()); // Resize webcam input to match window size
 
-    int cellWidth = ofGetWidth() / gridCols;
-    int cellHeight = ofGetHeight() / gridRows;
+    float cellWidth = ofGetWidth() / static_cast<float>(gridCols);
+    float cellHeight = ofGetHeight() / static_cast<float>(gridRows);
 
+    // Log calculated cellWidth and cellHeight
+    // ofLogNotice() << "Cell Dimensions: Width = " << cellWidth << ", Height = " << cellHeight;
+
+    // for(int row = 0; row < gridRows; ++row){
+    //     for(int col = 0; col < gridCols; ++col){
+    //         // Calculate the average color of the current cell
+    //         ofColor avgColor = getAverageColor(pixels, col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+    //         ofSetColor(avgColor);
+    //         // Draw the cell at the appropriate location with the calculated average color
+    //         ofDrawRectangle(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+    //     }
+    // }
+
+        // Iterate through each cell in the grid
     for(int row = 0; row < gridRows; ++row){
         for(int col = 0; col < gridCols; ++col){
-            // Calculate the average color of the current cell
-            ofColor avgColor = getAverageColor(pixels, col * cellWidth, row * cellHeight, cellWidth, cellHeight);
-            ofSetColor(avgColor);
-            // Draw the cell at the appropriate location with the calculated average color
+            // Calculate the center pixel coordinates of the current cell
+            int centerX = (col + 0.5) * cellWidth;
+            int centerY = (row + 0.5) * cellHeight;
+
+            // Ensure the coordinates are within the bounds of the image
+            centerX = ofClamp(centerX, 0, pixels.getWidth() - 1);
+            centerY = ofClamp(centerY, 0, pixels.getHeight() - 1);
+
+            // Get the color of the center pixel
+            ofColor centerColor = pixels.getColor(centerX, centerY);
+
+            // Set the fill color to the color of the center pixel
+            ofSetColor(centerColor);
+
+            // Draw the cell at the appropriate location with the color of the center pixel
             ofDrawRectangle(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
         }
     }
 }
 
-ofColor ofApp::getAverageColor(ofPixels & pixels, int x, int y, int width, int height){
-    long long totalR = 0, totalG = 0, totalB = 0;
-    int count = 0;
-    for(int i = x; i < x + width; ++i){
-        for(int j = y; j < y + height; ++j){
-            ofColor c = pixels.getColor(i, j);
-            totalR += c.r;
-            totalG += c.g;
-            totalB += c.b;
-            ++count;
-        }
-    }
-    return ofColor(totalR / count, totalG / count, totalB / count);
-}
+// ofColor ofApp::getAverageColor(ofPixels & pixels, int x, int y, int width, int height){
+//     long long totalR = 0, totalG = 0, totalB = 0;
+//     int count = 0;
+//     for(int i = x; i < x + width; i+=4){
+//         for(int j = y; j < y + height; j+=4){
+//             ofColor c = pixels.getColor(i, j);
+//             totalR += c.r;
+//             totalG += c.g;
+//             totalB += c.b;
+//             ++count;
+//         }
+//     }
+//     return ofColor(totalR / count, totalG / count, totalB / count);
+// }
 
 void ofApp::draw(){
     ofSetFullscreen(true);
-    webcam.draw(0, 0, ofGetWidth(), ofGetHeight());
 
     displayGrid();
-    
     // Gui drawing
+
     if(showGui){
         gui.draw();
     }
