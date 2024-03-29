@@ -2,55 +2,84 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
-#include "ofImage.h" // Ensure this is included for ofImage usage
+#include "ofImage.h"
 #include "ofxTensorFlow2.h"
 #include "ofxYolo.h"
 #include <future>
+#include <vector>
 
-class ofApp : public ofBaseApp{
+// Struct to track objects detected by YOLO
+struct TrackedObject {
+    ofxYolo::Object yoloObject;
+    glm::vec2 lastPosition;
+    uint64_t lastSeen;
+    bool isActive;
+
+    TrackedObject(const ofxYolo::Object& obj, const glm::vec2& pos, uint64_t time)
+        : yoloObject(obj), lastPosition(pos), lastSeen(time), isActive(true) {}
+};
+
+class ofApp : public ofBaseApp {
 public:
+    // Setup functions
     void setup();
+    void setupWebcam();
+
+    // Update & Draw functions
     void update();
     void draw();
+
+    // Input handling
     void keyPressed(int key);
 
+    // Custom functionality
+    void processFrame(ofPixels pixels);
+    void updateGrid();
+    void drawGrid();
+    void toggleModes();
+    void renderMode1();
+    void renderMode2();
+    int roundSliderValue(int currentValue, int increment);
+
+    // For morphing 
+    uint64_t transitionStartTime;
+    float currentZoomFactor;
+    float targetZoomFactor;
+    bool isTransitioning = false;
+
+private:
+    // Video capture
     ofVideoGrabber webcam;
     
+    // YOLO object detection
     ofxYolo yolo;
+    std::vector<TrackedObject> trackedObjects;
 
     // GUI components
     ofxPanel gui;
-    bool showGui;
-    ofxButton setupWebcamButton;
+    bool showGui = true;
     ofxIntSlider webcamWidth, webcamHeight;
     ofxIntSlider timerMedian, timerUncertainty;
     ofxIntSlider morphInDuration, morphOutDuration;
     ofxIntSlider untilMorphIn, untilMorphOut;
-    ofxFloatSlider mode2OffsetRange;
-    ofxFloatSlider detectionZoomFactor, bigCellZoomFactor;
-    
-    void setupWebcam();
-    void processFrame(ofPixels pixels); // Function to process the frame in a separate thread. Updated to take ofPixels by value for thread safety
-    std::future<void> futureResult; // Future to hold the result of the asynchronous call
+    ofxFloatSlider mode2MaxOffsetFactor;
+    ofxFloatSlider baseZoomFactor, bigCellZoomFactor;
 
-    ofImage tempImage; // Reusable image for resizing frames
-    
-    int roundSliderValue(int currentValue, int increment);
+    // Processing control
+    std::future<void> futureResult; // Future for async frame processing
+    int gridRefreshTimer; // For controlling dynamic updates
 
-    int changeTime;
+    // Grid display
+    int gridRows, gridCols;
+    float maxGridProbability = 0.2; // Probability for maximum grid size
 
-    int gridRows; 
-    int gridCols; 
+    float cellWidth, cellHeight;
 
-    float maxGridProbability = 0.2; // 20%
+    // Object tracking parameters
+    float activityThreshold = 0.02; // Threshold for detecting movement as a percentage of FOV
+    uint64_t inactiveTimeThreshold = 5000; // Time in ms to wait before marking an object as inactive
 
-    void updateGridDimensions(); 
-
-    void displayGrid();
-    ofColor getAverageColor(ofPixels & pixels, int x, int y, int width, int height);
-
-    bool isObjectDetected;
-    int mode; // 1 for normal mode, 2 for zoom and offset mode
-
+    // State control
+    bool isObjectDetected = false;
+    int mode = 1; // Application mode (1: normal, 2: zoom and offset)
 };
-
