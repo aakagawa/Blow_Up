@@ -7,45 +7,38 @@
 #include "ofxYolo.h"
 #include <future>
 #include <vector>
+#include "glm/vec2.hpp" // Make sure glm/vec2.hpp is included for glm::vec2
 
-// Struct to track objects detected by YOLO
-struct TrackedObject {
-    ofxYolo::Object yoloObject;
-    glm::vec2 lastPosition;
-    uint64_t lastSeen;
-    bool isActive;
+struct TrackedPerson {
+    glm::vec2 position; // Current position of the person
+    uint64_t lastMoveTime; // Last time the person moved
+    bool isActive; // Is the person active?
 
-    TrackedObject(const ofxYolo::Object& obj, const glm::vec2& pos, uint64_t time)
-        : yoloObject(obj), lastPosition(pos), lastSeen(time), isActive(true) {}
+    TrackedPerson(glm::vec2 pos, uint64_t time)
+        : position(pos), lastMoveTime(time), isActive(true) {}
 };
 
 class ofApp : public ofBaseApp {
 public:
-    // Setup functions
     void setup();
     void setupWebcam();
-
-    // Update & Draw functions
     void update();
     void draw();
-
-    // Input handling
-    void keyPressed(int key);
-
-    // Custom functionality
     void processFrame(ofPixels pixels);
     void updateGrid();
-    void drawGrid();
-    void toggleModes();
-    void renderMode1();
-    void renderMode2();
+    void fillCell(ofPixels& pixels, int col, int row, float resolutionFactor);
+    ofColor calculateAverageColor(ofPixels& pixels, float startX, float startY, float endX, float endY);
+    void keyPressed(int key);
     int roundSliderValue(int currentValue, int increment);
 
-    // For morphing 
-    uint64_t transitionStartTime;
-    float currentZoomFactor;
-    float targetZoomFactor;
+    // Variables for the transition
     bool isTransitioning = false;
+    uint64_t transitionStartTime = 0;
+    float currentZoomFactor = 1.0; // Start with no zoom
+    float targetZoomFactor = 2.0; // Zoom in factor
+    float resolutionFactor = 0.0; // Start with averaged color
+    float targetResolutionFactor = 1.0; // Transition to full resolution
+    glm::vec2 meanCenter; // Center for zooming based on detection
 
 private:
     // Video capture
@@ -53,7 +46,9 @@ private:
     
     // YOLO object detection
     ofxYolo yolo;
-    std::vector<TrackedObject> trackedObjects;
+
+    // Vector to track people 
+    std::vector<TrackedPerson> trackedPeople;
 
     // GUI components
     ofxPanel gui;
@@ -76,7 +71,7 @@ private:
     float cellWidth, cellHeight;
 
     // Object tracking parameters
-    float activityThreshold = 0.02; // Threshold for detecting movement as a percentage of FOV
+    float movementThreshold = 0.02; // Threshold for detecting movement as a percentage of FOV
     uint64_t inactiveTimeThreshold = 5000; // Time in ms to wait before marking an object as inactive
 
     // State control
