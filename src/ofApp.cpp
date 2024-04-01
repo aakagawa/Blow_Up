@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
-    ofSetFrameRate(60); // Set rendering framerate to 60fps
+    ofSetFrameRate(30); // Set rendering framerate to 60fps
     
     // Setup GUI
     showGui = true;
@@ -11,7 +11,7 @@ void ofApp::setup() {
     gui.setDefaultHeight(45); // Taller elements for better interaction
     gui.add(webcamWidth.setup("Width", 1920, 1920, 3840));
     gui.add(webcamHeight.setup("Height", 1080, 1080, 2160));
-    gui.add(timerMedian.setup("Timer Median", 2000, 500, 3000));
+    gui.add(timerMedian.setup("Timer Median", 3000, 500, 5000));
     gui.add(timerUncertainty.setup("Timer Uncertainty", 500, 0, 1500));
     gui.add(morphInDuration.setup("Morph In Duration", 2000, 1000, 5000));
     gui.add(morphOutDuration.setup("Morph Out Duration", 2000, 1000, 5000));
@@ -25,13 +25,10 @@ void ofApp::setup() {
         std::exit(EXIT_FAILURE);
     }
     yolo.setNormalize(true); // Normalize object bounding box coordinates
-    
-    isObjectDetected = false;
-    mode = 1;
 
     gridRefreshTimer = ofGetElapsedTimeMillis() + timerMedian + ofRandom(-timerUncertainty, timerUncertainty);
 
-    updateGrid(); 
+    updateGrid();
 }
 
 void ofApp::update() {
@@ -46,22 +43,46 @@ void ofApp::update() {
             if (futureResult.valid() ? futureResult.wait_for(std::chrono::milliseconds(0)) == std::future_status::ready : true) {
                 futureResult = std::async(std::launch::async, &ofApp::processFrame, this, webcam.getPixels());
             }
-        }   
-    }
-
-    if (isTransitioning) {
-        uint64_t elapsedTime = ofGetElapsedTimeMillis() - transitionStartTime;
-        float transitionDuration = 5000; // 5000ms for the transition
-        float progress = elapsedTime / transitionDuration;
-        progress = ofClamp(progress, 0.0, 1.0); // Clamp progress to [0, 1]
-
-        currentZoomFactor = ofLerp(1.0, targetZoomFactor, progress);
-        resolutionFactor = ofLerp(0.0, targetResolutionFactor, progress);
-            
-        if (progress >= 1.0) {
-            isTransitioning = false; // End transition
         }
     }
+        
+    ofLogNotice() << "personDetected = " << personDetected;
+
+    
+    // if (personDetected) {
+    //     if (!isTransitioning) {
+    //         isTransitioning = true;
+    //         transitionStartTime = ofGetElapsedTimeMillis();
+    //         // Set the target factors for detected state
+    //     }
+    // } 
+
+    // if (isTransitioning) {
+    //     uint64_t elapsedTime = ofGetElapsedTimeMillis() - transitionStartTime;
+    //     float transitionDuration = 5000; // Transition duration
+    //     float progress = elapsedTime / static_cast<float>(transitionDuration);
+    //     progress = ofClamp(progress, 0.0, 1.0);
+
+    //     if (personDetected) {
+    //         zoomFactor = ofLerp(targetZoomFactorUndetected, targetZoomFactorDetected, progress);
+    //         resolutionFactor = ofLerp(targetResolutionFactorUndetected, targetResolutionFactorDetected, progress);
+    //         offsetFactor = ofLerp(targetOffsetFactorUndetected, targetOffsetFactorDetected, progress);
+    //     } else {
+    //         zoomFactor = ofLerp(targetZoomFactorDetected, targetOffsetFactorUndetected, progress);
+    //         resolutionFactor = ofLerp(targetResolutionFactorDetected, targetOffsetFactorUndetected, progress);
+    //         offsetFactor = ofLerp(targetOffsetFactorDetected, targetOffsetFactorUndetected, progress);
+    //     }
+
+    //     if (progress >= 1.0) {
+    //         isTransitioning = false;
+    //     }
+    // }
+
+    if (ofGetElapsedTimeMillis() > gridRefreshTimer) {
+        updateGrid();
+        gridRefreshTimer = ofGetElapsedTimeMillis() + timerMedian + ofRandom(-timerUncertainty, timerUncertainty);
+    }
+
 }
 
 void ofApp::draw() {
@@ -69,24 +90,15 @@ void ofApp::draw() {
     ofPixels& pixels = webcam.getPixels();
     pixels.resize(ofGetWidth(), ofGetHeight());
 
-    if (isTransitioning) {
-        // Apply zoom centered on meanCenter
-        ofPushMatrix();
-        ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
-        ofTranslate(-meanCenter.x * currentZoomFactor, -meanCenter.y * currentZoomFactor);
-        ofScale(currentZoomFactor, currentZoomFactor);
-    }
+    ofLogNotice() << "meanCenter = " << meanCenter; 
+    
+    // zoom(meanCenter, zoomFactor);
 
     for (int row = 0; row < gridRows; ++row) {
         for (int col = 0; col < gridCols; ++col) {
-            float offsetX = isTransitioning ? ofRandom(-mode2MaxOffsetFactor * cellWidth, mode2MaxOffsetFactor * cellWidth) : 0;
-            float offsetY = isTransitioning ? ofRandom(-mode2MaxOffsetFactor * cellHeight, mode2MaxOffsetFactor * cellHeight) : 0;
-            fillCell(pixels, col * cellWidth + offsetX, row * cellHeight + offsetY, resolutionFactor);
+            fillCell(pixels, col * cellWidth, row * cellHeight, resolutionFactor);
+            // offsetCell(offsetFactor);
         }
-    }
-
-    if (isTransitioning) {
-        ofPopMatrix();
     }
 
     if (showGui) {
@@ -115,39 +127,42 @@ void ofApp::processFrame(ofPixels pixels) {
     auto objects = yolo.getObjects();
     uint64_t currentTime = ofGetElapsedTimeMillis();
 
-    bool personDetected = false;
     glm::vec2 sumPositions(0, 0);
     int detectedPersonsCount = 0;
     std::vector<bool> updated(objects.size(), false); // Track which tracked people are updated
 
     for (auto& object : objects) {
-        if (object.ident.text != "person") continue; // Focus on persons only
+        if (object.ident.text == "person") { // Focus on persons only
 
-        glm::vec2 currentPosition = glm::vec2(object.bbox.x + object.bbox.width / 2, object.bbox.y + object.bbox.height / 2);
-        bool found = false;
+            glm::vec2 currentPosition = glm::vec2(object.bbox.x + object.bbox.width / 2, object.bbox.y + object.bbox.height / 2);
+            bool found = false;
 
-        sumPositions += currentPosition;
-        detectedPersonsCount++;
-        personDetected = true;
+            sumPositions += currentPosition;
+            detectedPersonsCount++;
+            personDetected = true;
 
-        // Update existing tracked person or add a new one
-        for (size_t i = 0; i < trackedPeople.size(); ++i) {
-            if (glm::distance(currentPosition, trackedPeople[i].position) < movementThreshold) {
-                trackedPeople[i].position = currentPosition;
-                trackedPeople[i].lastMoveTime = currentTime;
-                trackedPeople[i].isActive = true;
-                updated[i] = true;
-                found = true;
-                break;
+            // Update existing tracked person or add a new one
+            for (size_t i = 0; i < trackedPeople.size(); ++i) {
+                if (glm::distance(currentPosition, trackedPeople[i].position) < movementThreshold) {
+                    trackedPeople[i].position = currentPosition;
+                    trackedPeople[i].lastMoveTime = currentTime;
+                    trackedPeople[i].isActive = true;
+                    updated[i] = true;
+                    found = true;
+                    break;
+                }
             }
-        }
 
-        if (!found) {
-            trackedPeople.emplace_back(TrackedPerson{currentPosition, currentTime});
-        }
+            if (!found) {
+                trackedPeople.emplace_back(TrackedPerson{currentPosition, currentTime});
+            }
 
-        sumPositions += currentPosition;
-        detectedPersonsCount++;
+            sumPositions += currentPosition;
+            detectedPersonsCount++;
+            
+        } else {
+            personDetected = false;
+        }
     }
 
     // Check for inactivity
@@ -157,71 +172,79 @@ void ofApp::processFrame(ofPixels pixels) {
         }
     }
 
-    // If persons are detected, calculate the mean center and initiate transition
     if (personDetected) {
         meanCenter = sumPositions / static_cast<float>(detectedPersonsCount);
+    }
+}
 
-        // Only start the transition if it's not already ongoing
-        if (!isTransitioning) {
-            isTransitioning = true;
-            transitionStartTime = ofGetElapsedTimeMillis();
-            currentZoomFactor = 1.0; // Reset zoom factor for the transition
-            resolutionFactor = 0.0; // Reset resolution factor for the transition
+void ofApp::fillCell(ofPixels& pixels, float nthCellX, float nthCellY, float resolutionFactor) {
+    // Map the resolutionFactor to a range that defines the number of subdivisions within the cell
+    subdivisions = 1 + static_cast<int>(resolutionFactor * (maxSubdivisions - 1));
+
+    // Calculate the size of each sub-cell
+    subCellWidth = cellWidth / subdivisions;
+    subCellHeight = cellHeight / subdivisions;
+
+    for (int subCol = 0; subCol < subdivisions; ++subCol) {
+        for (int subRow = 0; subRow < subdivisions; ++subRow) {
+            // Calculate the average color of this sub-cell
+            nthSubCellX = nthCellX + (subCol * subCellWidth);
+            nthSubCellY = nthCellY + (subRow * subCellHeight);
+            subnthCellWidth = nthSubCellX + subCellWidth;
+            susubnthCellHeight = nthSubCellY + subCellHeight;
+            
+            ofColor avgColor = calculateAverageColor(pixels, nthSubCellX, nthSubCellY, subnthCellWidth, susubnthCellHeight);
+            ofSetColor(avgColor);
+            ofDrawRectangle(nthSubCellX, nthSubCellY, subCellWidth, subCellHeight);
         }
     }
 }
 
-void ofApp::fillCell(ofPixels& pixels, int col, int row, float resolutionFactor) {
-    float cellStartX = col * cellWidth;
-    float cellStartY = row * cellHeight;
-    float cellEndX = cellStartX + cellWidth;
-    float cellEndY = cellStartY + cellHeight;
-
-    // Use calculateAverageColor for low resolutionFactor, directly drawing for higher values
-    if (resolutionFactor <= 0.1) { // Threshold for using average color
-        ofColor avgColor = calculateAverageColor(pixels, cellStartX, cellStartY, cellEndX, cellEndY);
-        ofSetColor(avgColor);
-        ofDrawRectangle(cellStartX, cellStartY, cellWidth, cellHeight);
-    } else {
-        // Sample pixels based on resolutionFactor to reduce drawing operations
-        int step = std::max(1, static_cast<int>((1.0f - resolutionFactor) * 10));
-        for (int x = cellStartX; x < cellEndX; x += step) {
-            for (int y = cellStartY; y < cellEndY; y += step) {
-                ofColor color = pixels.getColor(x, y);
-                ofSetColor(color);
-                ofDrawRectangle(x, y, step, step); // Draw sampled pixels as small squares
-                
-            }
+ofColor ofApp::calculateAverageColor(ofPixels& pixels, float x, float y, float width, float height) {
+    totalR = 0, totalG = 0, totalB = 0;
+    count = 0;
+    grain = std::max(1.0f, (width * height) / 16.0f); // Keep the grain calculation but ensure it's at least 1
+    grain = std::min(grain, std::min(width, height)); // Ensure grain does not exceed the dimensions of the area
+    for (int i = x; i < width; i += grain) {
+        for (int j = y; j < height; j += grain) {
+            ofColor c = pixels.getColor(i, j);
+            totalR += c.r;
+            totalG += c.g;
+            totalB += c.b;
+            ++count;
         }
     }
+    if (count == 0) {
+        return ofColor(0, 0, 0); // Return a default color if no pixels were processed
+    } 
+
+    subCellR = totalR / count;
+    subCellG = totalG / count;
+    subCellB = totalB / count;
+
+    return ofColor(subCellR, subCellG, subCellB);
 }
 
-ofColor ofApp::calculateAverageColor(ofPixels& pixels, float startX, float startY, float endX, float endY) {
-    startX = ofClamp(startX, 0, pixels.getWidth() - 1);
-    startY = ofClamp(startY, 0, pixels.getHeight() - 1);
-    endX = ofClamp(endX, startX, pixels.getWidth());
-    endY = ofClamp(endY, startY, pixels.getHeight());
+// void ofApp::zoom(glm::vec2 meanCenter, float zoomFactor) {
 
-    // Sample rate reduces the number of pixels processed for averaging
-    int sampleRate = 10; // Adjust based on performance vs accuracy needs
-    long totalRed = 0, totalGreen = 0, totalBlue = 0;
-    int pixelCount = 0;
+//     ofPushMatrix(); // Save the current coordinate system
+//     ofScale(zoomFactor, zoomFactor); // Apply zoom
+//     ofTranslate((meanCenter.x * ofGetWidth()), (meanCenter.y * ofGetHeight())); // Move back by meanCenter adjusted by zoom
 
-    for (int x = startX; x < endX; x += sampleRate) {
-        for (int y = startY; y < endY; y += sampleRate) {
-            ofColor color = pixels.getColor(x, y);
-            totalRed += color.r;
-            totalGreen += color.g;
-            totalBlue += color.b;
-            pixelCount++;
-        }
-    }
+//     ofPopMatrix(); // Restore the original coordinate system
+// }
 
-    if (pixelCount == 0) return ofColor(0, 0, 0); // Avoid division by zero
-    return ofColor(totalRed / pixelCount, totalGreen / pixelCount, totalBlue / pixelCount);
-}
+// void ofApp::offsetCell(float offsetFactor) { 
+//     offsetX = ofRandom(-offsetFactor, offsetFactor) * cellWidth;
+//     offsetY = ofRandom(-offsetFactor, offsetFactor) * cellHeight;
+
+//     ofTranslate(offsetX, offsetY);
+// }
 
 void ofApp::updateGrid() {
+    ofPixels& pixels = webcam.getPixels();
+    pixels.resize(ofGetWidth(), ofGetHeight());
+
     float prob = ofRandom(1.0);
     if (prob < maxGridProbability) {
         gridRows = gridCols = 256; // Maximum grid size with given probability
