@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
-    ofSetFrameRate(30); // Set rendering framerate to 60fps
+    ofSetFrameRate(60); // Set rendering framerate to 60fps
     
     // Setup GUI
     showGui = true;
@@ -46,57 +46,71 @@ void ofApp::update() {
         }
     }
         
-    ofLogNotice() << "personDetected = " << personDetected;
+    ofLogNotice() << "personDetected in update() = " << personDetected;
+    ofLogNotice() << "isTransitioning = " << isTransitioning;
 
-    
-    // if (personDetected) {
-    //     if (!isTransitioning) {
-    //         isTransitioning = true;
-    //         transitionStartTime = ofGetElapsedTimeMillis();
-    //         // Set the target factors for detected state
-    //     }
-    // } 
+    if (personDetected != lastPersonDetected && !isTransitioning) {
+        isTransitioning = true;
+        transitionStartTime = ofGetElapsedTimeMillis();
+        // Reset progress to start a new transition if needed
+        progress = 0.0;
+    }
 
-    // if (isTransitioning) {
-    //     uint64_t elapsedTime = ofGetElapsedTimeMillis() - transitionStartTime;
-    //     float transitionDuration = 5000; // Transition duration
-    //     float progress = elapsedTime / static_cast<float>(transitionDuration);
-    //     progress = ofClamp(progress, 0.0, 1.0);
+    if (isTransitioning) {
+        elapsedTime = ofGetElapsedTimeMillis() - transitionStartTime;
+        progress = elapsedTime / static_cast<float>(transitionDuration);
+        progress = ofClamp(progress, 0.0, 1.0);
+        if (personDetected) {
+            ofLogNotice() << "person detected ramp ";
+            resolutionFactor = ofLerp(targetResolutionFactorUndetected, targetResolutionFactorDetected, progress);
+            // zoomFactor = ofLerp(targetZoomFactorUndetected, targetZoomFactorDetected, progress);
+            // offsetFactor = ofLerp(targetOffsetFactorUndetected, targetOffsetFactorDetected, progress);
+            ofLogNotice() << "resolutionFactor: "<< resolutionFactor;
+        } 
+        else {
+            ofLogNotice() << "person undetected ramp";
+            resolutionFactor = ofLerp(targetResolutionFactorDetected, targetResolutionFactorUndetected, progress);
+            // zoomFactor = ofLerp(targetZoomFactorDetected, targetZoomFactorUndetected, progress);
+            // offsetFactor = ofLerp(targetOffsetFactorDetected, targetOffsetFactorUndetected, progress);
+            ofLogNotice() << "resolutionFactor: "<< resolutionFactor;
+        }
 
-    //     if (personDetected) {
-    //         zoomFactor = ofLerp(targetZoomFactorUndetected, targetZoomFactorDetected, progress);
-    //         resolutionFactor = ofLerp(targetResolutionFactorUndetected, targetResolutionFactorDetected, progress);
-    //         offsetFactor = ofLerp(targetOffsetFactorUndetected, targetOffsetFactorDetected, progress);
-    //     } else {
-    //         zoomFactor = ofLerp(targetZoomFactorDetected, targetOffsetFactorUndetected, progress);
-    //         resolutionFactor = ofLerp(targetResolutionFactorDetected, targetOffsetFactorUndetected, progress);
-    //         offsetFactor = ofLerp(targetOffsetFactorDetected, targetOffsetFactorUndetected, progress);
-    //     }
+        if (progress >= 1.0) {
+            isTransitioning = false;
+            lastPersonDetected = personDetected; // Update the last state to the current at the end of transition
+        }
+    }
+    // Ensure to update the lastPersonDetected variable outside and after the if(isTransitioning) block if the transition doesn't start
+    else if (personDetected != lastPersonDetected) {
+        lastPersonDetected = personDetected;
+    }
 
-    //     if (progress >= 1.0) {
-    //         isTransitioning = false;
-    //     }
-    // }
-
+    // updateGrid
     if (ofGetElapsedTimeMillis() > gridRefreshTimer) {
         updateGrid();
         gridRefreshTimer = ofGetElapsedTimeMillis() + timerMedian + ofRandom(-timerUncertainty, timerUncertainty);
     }
 
+    // Map the resolutionFactor to a range that defines the number of subdivisions within the cell
+    subdivisions = 1 + static_cast<int>(resolutionFactor * (maxSubdivisions - 1));
+
+    // Calculate the size of each sub-cell
+    subCellWidth = cellWidth / subdivisions;
+    subCellHeight = cellHeight / subdivisions;
+
+    ofLogNotice() << "subCellWidth: " << subCellWidth;
+    ofLogNotice() << "subCellHeight: " << subCellHeight;
 }
 
 void ofApp::draw() {
     ofSetFullscreen(true);
     ofPixels& pixels = webcam.getPixels();
     pixels.resize(ofGetWidth(), ofGetHeight());
-
-    ofLogNotice() << "meanCenter = " << meanCenter; 
     
-    // zoom(meanCenter, zoomFactor);
-
     for (int row = 0; row < gridRows; ++row) {
         for (int col = 0; col < gridCols; ++col) {
-            fillCell(pixels, col * cellWidth, row * cellHeight, resolutionFactor);
+            fillCell(pixels, col * cellWidth, row * cellHeight);
+            // zoom(meanCenter, zoomFactor);
             // offsetCell(offsetFactor);
         }
     }
@@ -105,7 +119,6 @@ void ofApp::draw() {
         gui.draw();
     }
 }
-
 
 void ofApp::keyPressed(int key) {
     if (key == 'g' || key == 'G') {
@@ -125,75 +138,67 @@ void ofApp::processFrame(ofPixels pixels) {
 
     // Retrieve and log detected objects
     auto objects = yolo.getObjects();
-    uint64_t currentTime = ofGetElapsedTimeMillis();
+    currentTime = ofGetElapsedTimeMillis();
+    personDetected = false;
 
-    glm::vec2 sumPositions(0, 0);
-    int detectedPersonsCount = 0;
-    std::vector<bool> updated(objects.size(), false); // Track which tracked people are updated
+    sumPositions = glm::vec2(0, 0);
+    activePersonCount = 0;
 
     for (auto& object : objects) {
         if (object.ident.text == "person") { // Focus on persons only
-
             glm::vec2 currentPosition = glm::vec2(object.bbox.x + object.bbox.width / 2, object.bbox.y + object.bbox.height / 2);
             bool found = false;
 
-            sumPositions += currentPosition;
-            detectedPersonsCount++;
-            personDetected = true;
-
-            // Update existing tracked person or add a new one
-            for (size_t i = 0; i < trackedPeople.size(); ++i) {
-                if (glm::distance(currentPosition, trackedPeople[i].position) < movementThreshold) {
-                    trackedPeople[i].position = currentPosition;
-                    trackedPeople[i].lastMoveTime = currentTime;
-                    trackedPeople[i].isActive = true;
-                    updated[i] = true;
+            // Check if same person 
+            for (auto& trackedPerson : trackedPeople) {
+                float movement = glm::distance(currentPosition, trackedPerson.position);
+                ofLogNotice() << "movement" << movement; 
+                if (movement < maxMovementThreshold) { // If detected person has not moved more than maxMovementThreshold
+                    if (movement > minMovementThreshold) { // If detected person who has NOT moved than maxMovementThreshold, has moved more than minMovementThreshol, Rrenew timestamp
+                        trackedPerson.lastMoveTime = currentTime;
+                        ofLogNotice() << "movement detected, updating time.";
+                    }
                     found = true;
+                    ofLogNotice() << "same person found"; 
                     break;
                 }
             }
-
-            if (!found) {
-                trackedPeople.emplace_back(TrackedPerson{currentPosition, currentTime});
-            }
-
-            sumPositions += currentPosition;
-            detectedPersonsCount++;
             
+            if (!found) { // 
+                trackedPeople.emplace_back(TrackedPerson{currentPosition, currentTime});
+                ofLogNotice() << "new person found"; 
+            }
+        } 
+    }
+
+    // Check for inactive tracked people
+    for (auto& trackedPerson : trackedPeople) {
+        if ((currentTime - trackedPerson.lastMoveTime) > inactiveTimeThreshold) {
+            trackedPerson.isActive = false;
+            ofLogNotice() << "inactive person found"; 
         } else {
-            personDetected = false;
+            trackedPerson.isActive = true;
+            ofLogNotice() << "active person found"; 
         }
+        if (trackedPerson.isActive) {
+            sumPositions += trackedPerson.position;
+            activePersonCount++;
+            personDetected = true; 
+        } 
     }
-
-    // Check for inactivity
-    for (size_t i = 0; i < trackedPeople.size(); ++i) {
-        if (!updated[i] && (currentTime - trackedPeople[i].lastMoveTime > inactiveTimeThreshold)) {
-            trackedPeople[i].isActive = false;
-        }
-    }
-
-    if (personDetected) {
-        meanCenter = sumPositions / static_cast<float>(detectedPersonsCount);
-    }
+    meanCenter = activePersonCount > 0 ? sumPositions / static_cast<float>(activePersonCount) : glm::vec2(ofGetWidth() / 2, ofGetHeight() / 2);
 }
 
-void ofApp::fillCell(ofPixels& pixels, float nthCellX, float nthCellY, float resolutionFactor) {
-    // Map the resolutionFactor to a range that defines the number of subdivisions within the cell
-    subdivisions = 1 + static_cast<int>(resolutionFactor * (maxSubdivisions - 1));
-
-    // Calculate the size of each sub-cell
-    subCellWidth = cellWidth / subdivisions;
-    subCellHeight = cellHeight / subdivisions;
-
+void ofApp::fillCell(ofPixels& pixels, float nthCellX, float nthCellY) {
     for (int subCol = 0; subCol < subdivisions; ++subCol) {
         for (int subRow = 0; subRow < subdivisions; ++subRow) {
             // Calculate the average color of this sub-cell
             nthSubCellX = nthCellX + (subCol * subCellWidth);
             nthSubCellY = nthCellY + (subRow * subCellHeight);
-            subnthCellWidth = nthSubCellX + subCellWidth;
-            susubnthCellHeight = nthSubCellY + subCellHeight;
+            nthSubCellWidth = nthSubCellX + subCellWidth;
+            nthSubCellHeight = nthSubCellY + subCellHeight;
             
-            ofColor avgColor = calculateAverageColor(pixels, nthSubCellX, nthSubCellY, subnthCellWidth, susubnthCellHeight);
+            ofColor avgColor = calculateAverageColor(pixels, nthSubCellX, nthSubCellY, nthSubCellWidth, nthSubCellHeight);
             ofSetColor(avgColor);
             ofDrawRectangle(nthSubCellX, nthSubCellY, subCellWidth, subCellHeight);
         }
@@ -201,12 +206,12 @@ void ofApp::fillCell(ofPixels& pixels, float nthCellX, float nthCellY, float res
 }
 
 ofColor ofApp::calculateAverageColor(ofPixels& pixels, float x, float y, float width, float height) {
-    totalR = 0, totalG = 0, totalB = 0;
     count = 0;
-    grain = std::max(1.0f, (width * height) / 16.0f); // Keep the grain calculation but ensure it's at least 1
-    grain = std::min(grain, std::min(width, height)); // Ensure grain does not exceed the dimensions of the area
-    for (int i = x; i < width; i += grain) {
-        for (int j = y; j < height; j += grain) {
+    totalR = 0, totalG = 0, totalB = 0;
+    // grain = std::max(1.0f, (width * height) / 4.0f); // Keep the grain calculation but ensure it's at least 1
+    // grain = std::min(grain, std::min(width, height)); // Ensure grain does not exceed the dimensions of the area
+    for (int i = floor(x); i < width; i += 2) {
+        for (int j = floor(y); j < height; j += 2) {
             ofColor c = pixels.getColor(i, j);
             totalR += c.r;
             totalG += c.g;
@@ -216,20 +221,20 @@ ofColor ofApp::calculateAverageColor(ofPixels& pixels, float x, float y, float w
     }
     if (count == 0) {
         return ofColor(0, 0, 0); // Return a default color if no pixels were processed
-    } 
-
-    subCellR = totalR / count;
-    subCellG = totalG / count;
-    subCellB = totalB / count;
-
-    return ofColor(subCellR, subCellG, subCellB);
+    } else {
+        subCellR = totalR / count;
+        subCellG = totalG / count;
+        subCellB = totalB / count;
+        return ofColor(subCellR, subCellG, subCellB);
+    }
+    
 }
 
 // void ofApp::zoom(glm::vec2 meanCenter, float zoomFactor) {
 
 //     ofPushMatrix(); // Save the current coordinate system
-//     ofScale(zoomFactor, zoomFactor); // Apply zoom
 //     ofTranslate((meanCenter.x * ofGetWidth()), (meanCenter.y * ofGetHeight())); // Move back by meanCenter adjusted by zoom
+//     ofScale(zoomFactor, zoomFactor); // Apply zoom
 
 //     ofPopMatrix(); // Restore the original coordinate system
 // }
@@ -255,6 +260,7 @@ void ofApp::updateGrid() {
 
     cellWidth = ofGetWidth() / static_cast<float>(gridCols);
     cellHeight = ofGetHeight() / static_cast<float>(gridRows);
+
 }
 
 int ofApp::roundSliderValue(int currentValue, int increment) {
