@@ -1,13 +1,6 @@
 *.DS_Store
 
-*
+bin/
+obj/
 
-!.gitignore 
-
-!Blow_Up_3.0.1/
-Blow_Up_3.0.1/*
-!Blow_Up_3.0.1/src/
-
-!Blow_Up_3.0.2/
-Blow_Up_3.0.2/*
-!Blow_Up_3.0.2/src/
+.vscode/
