@@ -59,10 +59,13 @@ class ofApp : public ofBaseApp {
 		static constexpr int MAX_COLS = 256; // Maximum grid columns
 		glm::vec2 cellFocus[MAX_ROWS][MAX_COLS]; // 2D array for cell focus points
 		float awef = 0;
+		int numMerges = 0;
 
 		// draw
 		float nthColX, nthRowY; 
+		float cellDrawWidth, cellDrawHeight;
 		float focusWidth, focusHeight;
+		float offsetX, offsetY;
 		float minNthFocusX, minNthFocusY;
 		float maxNthFocusX, maxNthFocusY; 
 		float nthFocusX, nthFocusY;
