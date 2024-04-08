@@ -57,6 +57,12 @@ void ofApp::setup() {
     ofLogNotice() << "initial gridCols: " << gridCols;
     ofLogNotice() << "initial cellWidth: " << cellWidth;
     ofLogNotice() << "initial cellHeight: " << cellHeight;
+
+    for (int row = 0; row < gridRows; ++row) {
+        for (int col = 0; col < gridCols; ++col) {
+            bigCells[row][col] = glm::vec2(1, 1); 
+        }
+    }
 }
 
 void ofApp::update() {
@@ -96,11 +102,37 @@ void ofApp::update() {
         if (personDetected) {
             ofLogNotice() << "person detected ramp ";
             awef = ofLerp(0, 1, progress);
-            numMerges = ofRandom(11);
+            if (progress == 0) {
+                ofLogNotice() << "ping!!"; 
+                // Offset cell content
+                for (int row = 0; row < gridRows; ++row) {
+                    for (int col = 0; col < gridCols; ++col) {
+                        // Generate random offsets within a desired range
+                        offsetFactors[row][col].x = ofRandom(-2.0f, 2.0f);
+                        offsetFactors[row][col].y = ofRandom(-2.0f, 2.0f);
+                    }
+                }
+                // Choose cells to merge 
+                mergeCount = ofRandom(0, 11);
+                for (int i = 0; i < mergeCount; ++i) {
+                    thisRow = ofRandom(0, gridRows);
+                    thisCol = ofRandom(0, gridCols);
+                    rowSpan = ofRandom(1, 3);
+                    colSpan = ofRandom(1, 3);
+                    bigCells[thisRow][thisCol] = glm::vec2(rowSpan, colSpan);
+                }
+            }
         } else {
             ofLogNotice() << "person undetected ramp";
             awef = ofLerp(1, 0, progress);
-            numMerges = 0;
+            if (progress == 1) {
+                for (int row = 0; row < gridRows; ++row) {
+                    for (int col = 0; col < gridCols; ++col) {
+                        bigCells[row][col] = glm::vec2(1, 1); 
+                    }
+                }
+            }
+             // numMerges = 0;
         }
         ofLogNotice() << "progress: " << progress;
         if (progress >= 1.0) {
@@ -169,16 +201,17 @@ void ofApp::processFrame(ofPixels pixels) {
     }
     ofLogNotice() << "meanCenter x: " << meanCenter.x;
     ofLogNotice() << "meanCenter y: " << meanCenter.y;
+    ofLogNotice() << "activePersonCount: " << activePersonCount;
     meanCenter = (activePersonCount > 0) ? sumPositions / static_cast<float>(activePersonCount) : glm::vec2(0.5, 0.5);
 }
 
 void ofApp::updateGrid() {
     float prob = ofRandom(1.0);
     if (prob < maxGridProbability) {
-        gridRows = gridCols = 128; // Maximum grid size with given probability
+        gridRows = gridCols = 64; // Maximum grid size with given probability
     } else {
-        gridRows = ofRandom(1, 128);
-        gridCols = ofRandom(1, 128);
+        gridRows = ofRandom(1, 64);
+        gridCols = ofRandom(1, 64);
     }
 
     cellWidth = imageWidth / static_cast<float>(gridCols);
@@ -191,43 +224,36 @@ void ofApp::draw() {
     if (image.isAllocated()) {
         for (int row = 0; row < gridRows; ++row) {
             for (int col = 0; col < gridCols; ++col) {
-                int colSpan = 1; 
-                int rowSpan = 1; 
+                rowSpan = 1;
+                colSpan = 1;
 
-                // Create 0-10 merged cells
-                while (numMerges != 0) {
-                    int mergeType = ofRandom(4);
-                    
-                    if (mergeType == 1 && (col < gridCols - 1) && (row < gridRows - 1)) {
-                        colSpan = rowSpan = 2; // 2x2 cells
-                    } else if (mergeType == 2 && (row < gridRows - 1)) {
-                        rowSpan = 2; // 1x2 cells
-                    } else if (mergeType == 3 && (col < gridCols - 1)) {
-                        colSpan = 2; // 2x1 cells
-                    }
+                if (bigCells[row][col].x > 1 || bigCells[row][col].y > 1) {
+                    ofLogNotice() << "bigCell!";
+                    rowSpan = bigCells[row][col].x;
+                    colSpan = bigCells[row][col].y;
                 }
 
                 cellDrawWidth = cellWidth * colSpan; 
                 cellDrawHeight = cellHeight * rowSpan; 
 
-                nthColX = col * cellWidth; 
-                nthRowY = row * cellHeight;
+                nthColX = cellWidth * col;
+                nthRowY = cellHeight * row;
 
-                focusWidth = (awef * ((cellWidth * 0.66) - 1)) + 1; // Decide scale factor when personDetected
-                focusHeight = (awef * ((cellHeight * 0.66) - 1)) + 1; // Decide scale factor when personDetected
+                focusWidth = (awef * ((cellWidth * 3) - 1)) + 1; // Decide scale factor when personDetected
+                focusHeight = (awef * ((cellHeight * 3) - 1)) + 1; // Decide scale factor when personDetected
 
-                offsetX = focusWidth * 0.2; 
-                offsetY = focusHeight * 0.2; 
+                offsetX = cellWidth * offsetFactors[row][col].x;
+                offsetY = cellHeight * offsetFactors[row][col].y;
 
                 minNthFocusX = nthColX + (cellWidth / 2); 
                 minNthFocusY = nthRowY + (cellHeight / 2);
 
-                maxNthFocusX = ((cellWidth * meanCenter.x) - (focusWidth / 2));
-                maxNthFocusY = ((cellHeight * meanCenter.y) - (focusHeight / 2));
+                maxNthFocusX = (nthColX - ((focusWidth - cellWidth) / 2) + ((focusWidth * meanCenter.x) - (focusWidth / 2))) + offsetX;
+                maxNthFocusY = (nthRowY - ((focusHeight - cellHeight) / 2) + ((focusHeight * meanCenter.y) - (focusHeight / 2))) + offsetY;
 
-                nthFocusX = ((awef * (maxNthFocusX - minNthFocusX)) + minNthFocusX) + ofRandom(-offsetX, offsetX);
-                nthFocusY = ((awef * (maxNthFocusY - minNthFocusY)) + minNthFocusY) + ofRandom(-offsetY, offsetY);
-                
+                nthFocusX = (((awef * (maxNthFocusX - minNthFocusX)) + minNthFocusX));
+                nthFocusY = (((awef * (maxNthFocusY - minNthFocusY)) + minNthFocusY));
+            
                 image.drawSubsection(nthColX, nthRowY, cellDrawWidth, cellDrawHeight, nthFocusX, nthFocusY, focusWidth, focusHeight);
 
                 ofNoFill();

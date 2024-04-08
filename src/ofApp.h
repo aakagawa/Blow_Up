@@ -53,14 +53,16 @@ class ofApp : public ofBaseApp {
 		uint64_t transitionStartTime;
 		uint64_t elapsedTime; 
 		float progress = 0.0;
-		float transitionDuration = 1000;
-		float nthCellCenterX, nthCellCenterY;
-		static constexpr int MAX_ROWS = 256; // Maximum grid rows
-		static constexpr int MAX_COLS = 256; // Maximum grid columns
-		glm::vec2 cellFocus[MAX_ROWS][MAX_COLS]; // 2D array for cell focus points
+		float transitionDuration = 500;
 		float awef = 0;
-		int numMerges = 0;
-
+		static const int MAX_ROWS = 256; // Maximum grid rows
+		static const int MAX_COLS = 256; // Maximum grid columns
+		glm::vec2 offsetFactors [MAX_ROWS][MAX_COLS]; // 2D array for cell focus points
+		glm::vec2 bigCells[MAX_ROWS][MAX_COLS];
+		int mergeCount = 0; 
+		int thisRow, thisCol;
+		int rowSpan, colSpan;
+		
 		// draw
 		float nthColX, nthRowY; 
 		float cellDrawWidth, cellDrawHeight;
