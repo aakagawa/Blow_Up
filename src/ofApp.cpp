@@ -11,7 +11,7 @@ void ofApp::setup() {
     gui.add(intervalMedian.setup("Grid refresh interval", 5000, 2000, 10000));
     gui.add(intervalUncertainty.setup("Gride refresh error", 500, 0, 1000));
 
-    ofSetFrameRate(30); // Set rendering framerate to 60fps
+    ofSetFrameRate(60); // Set rendering framerate to 60fps
     ofSetFullscreen(true);
 
     // Scale camera to display 
@@ -20,12 +20,8 @@ void ofApp::setup() {
     grabber.update();
     int inputWidth = grabber.getWidth();
     int inputHeight = grabber.getHeight();
-    ofLogNotice() << "inputWidth: " << inputWidth;
-    ofLogNotice() << "inputHeight: " << inputHeight;
     int outputWidth = ofGetWidth();
     int outputHeight = ofGetHeight(); 
-    ofLogNotice() << "outputWidth: " << outputWidth;
-    ofLogNotice() << "outputHeight: " << outputHeight;
 
     float cameraAspectRatio = static_cast<float>(inputWidth) / static_cast<float>(inputHeight); // e.g. 1280, 720 = cameraAspectRatio = 1.7777
     float displayAspectRatio = static_cast<float>(outputWidth) / static_cast<float>(outputHeight); // e.g. 1792, 1120  displayAspectRatio = 1.6 
@@ -39,8 +35,6 @@ void ofApp::setup() {
     // Calculate new dimensions
     imageWidth = inputWidth * baseScale;
     imageHeight = inputHeight * baseScale;
-    ofLogNotice() << "imageWidth: " << imageWidth;
-    ofLogNotice() << "imageHeight: " << imageHeight;
 
     // Initialize YOLO model 
     if (!yolo.setup("model", "classes.txt")) { 
@@ -52,23 +46,21 @@ void ofApp::setup() {
     // Initialize gridRefreshInterval
     gridRefreshInterval = ofGetElapsedTimeMillis() + intervalMedian + ofRandom(-intervalUncertainty, intervalUncertainty);
 
-    updateGrid();
-    ofLogNotice() << "initial gridRows: " << gridRows;
-    ofLogNotice() << "initial gridCols: " << gridCols;
-    ofLogNotice() << "initial cellWidth: " << cellWidth;
-    ofLogNotice() << "initial cellHeight: " << cellHeight;
-
-    for (int row = 0; row < gridRows; ++row) {
-        for (int col = 0; col < gridCols; ++col) {
+    // Initialize bigCells and offsetFactors size
+    for (int row = 0; row < MAX_ROWS; ++row) {
+        for (int col = 0; col < MAX_COLS; ++col) {
             bigCells[row][col] = glm::vec2(1, 1); 
+            offsetFactors[row][col] = glm::vec2(1, 1); 
         }
     }
+
+    updateGrid();
 }
 
 void ofApp::update() {
     grabber.update();
     static int frameCount = 0;
-    int frameGrain = 4;
+    int frameGrain = 2;
 
     if (grabber.isFrameNew()) {
         ofPixels pixels = grabber.getPixels();
@@ -81,11 +73,13 @@ void ofApp::update() {
             }
         }
     }
-
+    
     // Update grid every gridRefreshInterval ± intervalUncertainty
     if (ofGetElapsedTimeMillis() > gridRefreshInterval) {
-        updateGrid();
-        gridRefreshInterval = ofGetElapsedTimeMillis() + intervalMedian + ofRandom(-intervalUncertainty, intervalUncertainty);
+        if (!personDetected && !isTransitioning) {
+            updateGrid();
+            gridRefreshInterval = ofGetElapsedTimeMillis() + intervalMedian + ofRandom(-intervalUncertainty, intervalUncertainty);
+        }
     }
 
     if (personDetected != lastPersonDetected && !isTransitioning) {
@@ -103,43 +97,26 @@ void ofApp::update() {
             ofLogNotice() << "person detected ramp ";
             awef = ofLerp(0, 1, progress);
             if (progress == 0) {
-                ofLogNotice() << "ping!!"; 
-                // Offset cell content
-                for (int row = 0; row < gridRows; ++row) {
-                    for (int col = 0; col < gridCols; ++col) {
-                        // Generate random offsets within a desired range
-                        offsetFactors[row][col].x = ofRandom(-2.0f, 2.0f);
-                        offsetFactors[row][col].y = ofRandom(-2.0f, 2.0f);
-                    }
-                }
-                // Choose cells to merge 
-                mergeCount = ofRandom(0, 11);
-                for (int i = 0; i < mergeCount; ++i) {
-                    thisRow = ofRandom(0, gridRows);
-                    thisCol = ofRandom(0, gridCols);
-                    rowSpan = ofRandom(1, 3);
-                    colSpan = ofRandom(1, 3);
-                    bigCells[thisRow][thisCol] = glm::vec2(rowSpan, colSpan);
-                }
+                mergeCells();
+                offsetCells();
             }
         } else {
             ofLogNotice() << "person undetected ramp";
             awef = ofLerp(1, 0, progress);
             if (progress == 1) {
-                for (int row = 0; row < gridRows; ++row) {
+                for (int row = 0; row < gridRows; ++row) { // Resetting mergeCells and offsetCells 
                     for (int col = 0; col < gridCols; ++col) {
                         bigCells[row][col] = glm::vec2(1, 1); 
                     }
                 }
             }
-             // numMerges = 0;
         }
         ofLogNotice() << "progress: " << progress;
         if (progress >= 1.0) {
             isTransitioning = false;
             lastPersonDetected = personDetected; // Update the last state to the current at the end of transition
         }
-    } else if (personDetected != lastPersonDetected) { // Ensure to update the lastPersonDetected variable outside and after the if(isTransitioning) block if the transition doesn't start
+    } else if (personDetected != lastPersonDetected) { // Update lastPersonDetected if transition didn't start 
         lastPersonDetected = personDetected;
     }
 }
@@ -158,7 +135,7 @@ void ofApp::processFrame(ofPixels pixels) {
     sumPositions = glm::vec2(0, 0);
 
     for (auto& object : objects) {
-        if (object.ident.text == "person") { // Focus on persons only
+        if (object.ident.text == "person") { // Focus on people only
             position = glm::vec2(object.bbox.x + object.bbox.width / 2, object.bbox.y + object.bbox.height / 2);
             bool found = false;
 
@@ -167,7 +144,7 @@ void ofApp::processFrame(ofPixels pixels) {
                 movement = glm::distance(position, trackedPerson.position);
                 ofLogNotice() << "movement" << movement; 
                 if (movement < maxMovementThreshold) { // If detected person has not moved more than maxMovementThreshold
-                    if (movement > minMovementThreshold) { // If detected person who has NOT moved than maxMovementThreshold, has moved more than minMovementThreshol, Rrenew timestamp
+                    if (movement > minMovementThreshold) { // If detected person who has NOT moved than maxMovementThreshold, has moved more than minMovementThreshol, renew timestamp
                         trackedPerson.lastMoveTime = currentTime;
                         ofLogNotice() << "movement detected, updating time.";
                     }
@@ -176,7 +153,6 @@ void ofApp::processFrame(ofPixels pixels) {
                     break;
                 }
             }
-            
             if (!found) { 
                 trackedPeople.emplace_back(TrackedPerson{position, currentTime});
                 ofLogNotice() << "new person found"; 
@@ -188,7 +164,8 @@ void ofApp::processFrame(ofPixels pixels) {
     for (auto& trackedPerson : trackedPeople) {
         if ((currentTime - trackedPerson.lastMoveTime) > inactiveTimeThreshold) {
             trackedPerson.isActive = false;
-            ofLogNotice() << "inactive person found"; 
+            ofLogNotice() << "inactive person found";
+
         } else {
             trackedPerson.isActive = true;
             ofLogNotice() << "active person found"; 
@@ -197,11 +174,10 @@ void ofApp::processFrame(ofPixels pixels) {
             sumPositions += trackedPerson.position;
             activePersonCount++;
             personDetected = true; 
-        } 
+        } else {
+            activePersonCount--;
+        }
     }
-    ofLogNotice() << "meanCenter x: " << meanCenter.x;
-    ofLogNotice() << "meanCenter y: " << meanCenter.y;
-    ofLogNotice() << "activePersonCount: " << activePersonCount;
     meanCenter = (activePersonCount > 0) ? sumPositions / static_cast<float>(activePersonCount) : glm::vec2(0.5, 0.5);
 }
 
@@ -216,49 +192,87 @@ void ofApp::updateGrid() {
 
     cellWidth = imageWidth / static_cast<float>(gridCols);
     cellHeight = imageHeight / static_cast<float>(gridRows);
-
-    cellAspectRatio = cellWidth / cellHeight;
 }
 
-void ofApp::draw() { 
-    if (image.isAllocated()) {
-        for (int row = 0; row < gridRows; ++row) {
-            for (int col = 0; col < gridCols; ++col) {
-                rowSpan = 1;
-                colSpan = 1;
-
-                if (bigCells[row][col].x > 1 || bigCells[row][col].y > 1) {
-                    ofLogNotice() << "bigCell!";
-                    rowSpan = bigCells[row][col].x;
-                    colSpan = bigCells[row][col].y;
+void ofApp::mergeCells() {
+    mergeCount = ofRandom(0, 11);
+    for (int i = 0; i < mergeCount; ++i) {
+        thisRow = ofRandom(0, gridRows);
+        thisCol = ofRandom(0, gridCols);
+        rowSpan = ofRandom(1, 3); // Random between 1-2 
+        colSpan = ofRandom(1, 3);
+        bigCells[thisRow][thisCol] = glm::vec2(rowSpan, colSpan);
+        
+        for (int r = 0; r < rowSpan; ++r) {
+            for (int c = 0; c < colSpan; ++c) {
+                if (r == 0 && c == 0) {
+                    // This is the top-left cell, mark it with its span
+                    bigCells[thisRow][thisCol] = glm::vec2(rowSpan, colSpan);
+                } else {
+                    // Mark other cells as part of the merged cell
+                    bigCells[thisRow + r][thisCol + c] = glm::vec2(-1, -1);
                 }
-
-                cellDrawWidth = cellWidth * colSpan; 
-                cellDrawHeight = cellHeight * rowSpan; 
-
-                nthColX = cellWidth * col;
-                nthRowY = cellHeight * row;
-
-                focusWidth = (awef * ((cellWidth * 3) - 1)) + 1; // Decide scale factor when personDetected
-                focusHeight = (awef * ((cellHeight * 3) - 1)) + 1; // Decide scale factor when personDetected
-
-                offsetX = cellWidth * offsetFactors[row][col].x;
-                offsetY = cellHeight * offsetFactors[row][col].y;
-
-                minNthFocusX = nthColX + (cellWidth / 2); 
-                minNthFocusY = nthRowY + (cellHeight / 2);
-
-                maxNthFocusX = (nthColX - ((focusWidth - cellWidth) / 2) + ((focusWidth * meanCenter.x) - (focusWidth / 2))) + offsetX;
-                maxNthFocusY = (nthRowY - ((focusHeight - cellHeight) / 2) + ((focusHeight * meanCenter.y) - (focusHeight / 2))) + offsetY;
-
-                nthFocusX = (((awef * (maxNthFocusX - minNthFocusX)) + minNthFocusX));
-                nthFocusY = (((awef * (maxNthFocusY - minNthFocusY)) + minNthFocusY));
-            
-                image.drawSubsection(nthColX, nthRowY, cellDrawWidth, cellDrawHeight, nthFocusX, nthFocusY, focusWidth, focusHeight);
-
-                ofNoFill();
-                ofDrawRectangle(nthColX, nthRowY, cellDrawWidth, cellDrawHeight);
             }
         }
     }
+}
+
+void ofApp::offsetCells() { 
+    for (int row = 0; row < gridRows; ++row) {
+        for (int col = 0; col < gridCols; ++col) {
+            // Generate random offsets within a desired range
+            offsetFactors[row][col].x = ofRandom(-2.0f, 2.0f);
+            offsetFactors[row][col].y = ofRandom(-2.0f, 2.0f);
+        }
+    }
+}
+
+
+void ofApp::draw() { 
+    ofPushMatrix();
+    // Apply transformations to flip rendering horizontally
+    ofTranslate(ofGetWidth(), 0); // Move the origin to the mirrored position
+    ofScale(-1, 1); // Flip the X-axis
+
+    for (int row = 0; row < gridRows; ++row) {
+        for (int col = 0; col < gridCols; ++col) {
+            if (bigCells[row][col].x == -1 && bigCells[row][col].y == -1) {
+                continue; 
+            }
+            rowSpan = 1;
+            colSpan = 1;
+
+            if (bigCells[row][col].x > 1 || bigCells[row][col].y > 1) {
+                rowSpan = bigCells[row][col].x;
+                colSpan = bigCells[row][col].y;
+            }
+
+            cellDrawWidth = cellWidth * colSpan; 
+            cellDrawHeight = cellHeight * rowSpan; 
+
+            nthColX = cellWidth * col;
+            nthRowY = cellHeight * row;
+
+            focusWidth = (awef * ((cellWidth * 3) - 1)) + 1; // Decide scale factor when personDetected
+            focusHeight = (awef * ((cellHeight * 3) - 1)) + 1; // Decide scale factor when personDetected
+
+            offsetX = cellWidth * offsetFactors[row][col].x;
+            offsetY = cellHeight * offsetFactors[row][col].y;
+
+            minNthFocusX = nthColX + (cellWidth / 2); 
+            minNthFocusY = nthRowY + (cellHeight / 2);
+
+            maxNthFocusX = (nthColX - ((focusWidth - cellWidth) / 2) + ((focusWidth * meanCenter.x) - (focusWidth / 2))) + offsetX;
+            maxNthFocusY = (nthRowY - ((focusHeight - cellHeight) / 2) + ((focusHeight * meanCenter.y) - (focusHeight / 2))) + offsetY;
+
+            nthFocusX = (((awef * (maxNthFocusX - minNthFocusX)) + minNthFocusX));
+            nthFocusY = (((awef * (maxNthFocusY - minNthFocusY)) + minNthFocusY));
+        
+            image.drawSubsection(nthColX, nthRowY, cellDrawWidth, cellDrawHeight, nthFocusX, nthFocusY, focusWidth, focusHeight);
+
+            ofNoFill();
+            ofDrawRectangle(nthColX, nthRowY, cellDrawWidth, cellDrawHeight);
+        }
+    }
+    ofPopMatrix();
 }

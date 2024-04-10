@@ -27,6 +27,8 @@ class ofApp : public ofBaseApp {
 		
 		void processFrame(ofPixels pixels);
 		void updateGrid();
+		void mergeCells();
+		void offsetCells();
 
 		void drawGrid();
 		
@@ -57,7 +59,7 @@ class ofApp : public ofBaseApp {
 		float awef = 0;
 		static const int MAX_ROWS = 256; // Maximum grid rows
 		static const int MAX_COLS = 256; // Maximum grid columns
-		glm::vec2 offsetFactors [MAX_ROWS][MAX_COLS]; // 2D array for cell focus points
+		glm::vec2 offsetFactors[MAX_ROWS][MAX_COLS]; // 2D array for cell focus points
 		glm::vec2 bigCells[MAX_ROWS][MAX_COLS];
 		int mergeCount = 0; 
 		int thisRow, thisCol;
