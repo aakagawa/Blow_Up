@@ -12,10 +12,9 @@
 struct TrackedPerson {
     glm::vec2 position;
     uint64_t lastMoveTime;
-    bool isActive;
 
     TrackedPerson(glm::vec2 pos, uint64_t time)
-        : position(pos), lastMoveTime(time), isActive(true) {}
+        : position(pos), lastMoveTime(time) {}
 };
 
 class ofApp : public ofBaseApp {
@@ -55,7 +54,7 @@ class ofApp : public ofBaseApp {
 		uint64_t transitionStartTime;
 		uint64_t elapsedTime; 
 		float progress = 0.0;
-		float transitionDuration = 500;
+		float transitionDuration = 1000;
 		float awef = 0;
 		static const int MAX_ROWS = 256; // Maximum grid rows
 		static const int MAX_COLS = 256; // Maximum grid columns
@@ -90,7 +89,7 @@ class ofApp : public ofBaseApp {
 		glm::vec2 position;
 		std::vector<TrackedPerson> trackedPeople;
 		float movement;
-		float maxMovementThreshold = 0.1; // Make adjustable
+		float maxMovementThreshold = 0.75; // Make adjustable
 		float minMovementThreshold = 0.05; // Make adjustable
 		uint64_t inactiveTimeThreshold = 10000;
 		glm::vec2 meanCenter;

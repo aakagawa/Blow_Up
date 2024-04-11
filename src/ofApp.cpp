@@ -11,7 +11,8 @@ void ofApp::setup() {
     gui.add(intervalMedian.setup("Grid refresh interval", 5000, 2000, 10000));
     gui.add(intervalUncertainty.setup("Gride refresh error", 500, 0, 1000));
 
-    ofSetFrameRate(60); // Set rendering framerate to 60fps
+    //  Rendering settings
+    ofSetFrameRate(60); 
     ofSetFullscreen(true);
 
     // Scale camera to display 
@@ -53,7 +54,6 @@ void ofApp::setup() {
             offsetFactors[row][col] = glm::vec2(1, 1); 
         }
     }
-
     updateGrid();
 }
 
@@ -73,14 +73,6 @@ void ofApp::update() {
             }
         }
     }
-    
-    // Update grid every gridRefreshInterval ± intervalUncertainty
-    if (ofGetElapsedTimeMillis() > gridRefreshInterval) {
-        if (!personDetected && !isTransitioning) {
-            updateGrid();
-            gridRefreshInterval = ofGetElapsedTimeMillis() + intervalMedian + ofRandom(-intervalUncertainty, intervalUncertainty);
-        }
-    }
 
     if (personDetected != lastPersonDetected && !isTransitioning) {
         isTransitioning = true;
@@ -94,7 +86,7 @@ void ofApp::update() {
         progress = elapsedTime / static_cast<float>(transitionDuration);
         progress = ofClamp(progress, 0.0, 1.0);
         if (personDetected) {
-            ofLogNotice() << "person detected ramp ";
+            ofLogNotice() << "person detected ramp";
             awef = ofLerp(0, 1, progress);
             if (progress == 0) {
                 mergeCells();
@@ -119,20 +111,28 @@ void ofApp::update() {
     } else if (personDetected != lastPersonDetected) { // Update lastPersonDetected if transition didn't start 
         lastPersonDetected = personDetected;
     }
+
+    // Update grid every gridRefreshInterval ± intervalUncertainty
+    if (!personDetected && !isTransitioning) {
+        if (ofGetElapsedTimeMillis() > gridRefreshInterval) {
+            updateGrid();
+            gridRefreshInterval = ofGetElapsedTimeMillis() + intervalMedian + ofRandom(-intervalUncertainty, intervalUncertainty);
+        }        
+    }
+
 }
 
 // Asynchronous  
 void ofApp::processFrame(ofPixels pixels) {
-    pixels.resize(960, 540); // Adjust resizing directly on ofPixels
+    pixels.resize(960, 540);
     yolo.setInput(pixels);
     yolo.update();
 
-    // Retrieve and log detected objects
     auto objects = yolo.getObjects();
     currentTime = ofGetElapsedTimeMillis();
     personDetected = false;
     activePersonCount = 0;
-    sumPositions = glm::vec2(0, 0);
+    sumPositions = glm::vec2(0.5, 0.5);
 
     for (auto& object : objects) {
         if (object.ident.text == "person") { // Focus on people only
@@ -142,20 +142,20 @@ void ofApp::processFrame(ofPixels pixels) {
             // Check if same person 
             for (auto& trackedPerson : trackedPeople) {
                 movement = glm::distance(position, trackedPerson.position);
-                ofLogNotice() << "movement" << movement; 
+                ofLogNotice() << "movement: " << movement; 
                 if (movement < maxMovementThreshold) { // If detected person has not moved more than maxMovementThreshold
                     if (movement > minMovementThreshold) { // If detected person who has NOT moved than maxMovementThreshold, has moved more than minMovementThreshol, renew timestamp
                         trackedPerson.lastMoveTime = currentTime;
                         ofLogNotice() << "movement detected, updating time.";
                     }
                     found = true;
-                    ofLogNotice() << "same person found"; 
+                    ofLogNotice() << "same person found."; 
                     break;
                 }
             }
             if (!found) { 
                 trackedPeople.emplace_back(TrackedPerson{position, currentTime});
-                ofLogNotice() << "new person found"; 
+                ofLogNotice() << "new person found."; 
             }
         } 
     }
@@ -163,21 +163,16 @@ void ofApp::processFrame(ofPixels pixels) {
     // Check for inactive tracked people
     for (auto& trackedPerson : trackedPeople) {
         if ((currentTime - trackedPerson.lastMoveTime) > inactiveTimeThreshold) {
-            trackedPerson.isActive = false;
+            activePersonCount--;
             ofLogNotice() << "inactive person found";
-
         } else {
-            trackedPerson.isActive = true;
-            ofLogNotice() << "active person found"; 
-        }
-        if (trackedPerson.isActive) {
             sumPositions += trackedPerson.position;
             activePersonCount++;
             personDetected = true; 
-        } else {
-            activePersonCount--;
+            ofLogNotice() << "active person found"; 
         }
     }
+    ofLogNotice() << "activePersonCount: " << activePersonCount; 
     meanCenter = (activePersonCount > 0) ? sumPositions / static_cast<float>(activePersonCount) : glm::vec2(0.5, 0.5);
 }
 
@@ -226,7 +221,6 @@ void ofApp::offsetCells() {
         }
     }
 }
-
 
 void ofApp::draw() { 
     ofPushMatrix();
