@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
-    ofSetFrameRate(60); 
+    ofSetFrameRate(30);
     
     showGui = true;
     gui.setup();
@@ -39,7 +39,7 @@ void ofApp::setup() {
     gui.add(offsetFactorX.setup("Horizontal offset factor (blow up)", 7.5, 0.0, 20.0));
     gui.add(offsetFactorY.setup("Vertical offset factor (blow up)", 2.5, 0.0, 10.0));
     gui.add(transDuration.setup("Transition duration", 1000, 500, 5000)); 
-    gui.add(focusFollowSpeed.setup("Focus follow speed", 0.2, 0.05, 0.5));  
+    gui.add(focusFollowSpeed.setup("Focus follow speed", 0.05, 0.01, 0.5));
 
     // Detection settings
     gui.add(detectionSettings.setup("DETECTION SETTINGS", ""));
@@ -307,9 +307,6 @@ void ofApp::mergeCells() {
         rowSpan = ofRandom(1, 3); // Random between 1-2 
         colSpan = ofRandom(1, 3);
 
-        rowSpan *= bigCellScale;
-        colSpan *= bigCellScale;
-
         // Check if the merge is within the grid boundaries
         if (thisRow + rowSpan > gridRows || thisCol + colSpan > gridCols) {
             continue;
@@ -333,6 +330,9 @@ void ofApp::mergeCells() {
             n2x2CellCount++;
         }
 
+        rowSpan *= bigCellScale;
+        colSpan *= bigCellScale;
+        
         // Implement the merging
         for (int r = 0; r < rowSpan; ++r) {
             for (int c = 0; c < colSpan; ++c) {
@@ -366,6 +366,7 @@ void ofApp::draw() {
     
     for (int row = 0; row < gridRows; ++row) {
         for (int col = 0; col < gridCols; ++col) {
+            
             if (bigCells[row][col].x == -1 && bigCells[row][col].y == -1) {
                 continue; 
             }
