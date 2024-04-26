@@ -105,7 +105,7 @@ OF_ROOT = ../../..
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
-# PROJECT_CFLAGS = 
+# PROJECT_CFLAGS += -pg -g 
 
 ################################################################################
 # PROJECT OPTIMIZATION CFLAGS
