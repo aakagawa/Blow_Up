@@ -17,10 +17,6 @@ void ofApp::setup() {
     // Display settings
     gui.add(displaySettings.setup("DISPLAY SETTINGS", ""));
     gui.add(flipImage.setup("Flip image", true)); 
-    gui.add(displayWidth.setup("Custom display width", ofGetWidth(), 0, 7680)); 
-    gui.add(displayHeight.setup("Custom display height", ofGetHeight(), 0, 4320)); 
-    displayWidth.addListener(this, &ofApp::displayParametersChanged);
-    displayHeight.addListener(this, &ofApp::displayParametersChanged);
     
     // Grid settings
     gui.add(gridSettings.setup("GRID SETTINGS", ""));
@@ -40,8 +36,8 @@ void ofApp::setup() {
     gui.add(max2x2Cell.setup("Max num of 2x2 cells", 2, 0, 10)); 
     gui.add(bigCellScale.setup("Big cell scale", 1, 0, 4));
     gui.add(scaleFactor.setup("Scale factor (blow up)", 0.25, 0.05, 0.5));
-    gui.add(offsetFactorX.setup("Horizontal offset factor (blow up)", 10.0, 0.0, 20.0)); 
-    gui.add(offsetFactorY.setup("Vertical offset factor (blow up)", 2.0, 0.0, 10.0)); 
+    gui.add(offsetFactorX.setup("Horizontal offset factor (blow up)", 7.5, 0.0, 20.0));
+    gui.add(offsetFactorY.setup("Vertical offset factor (blow up)", 2.5, 0.0, 10.0));
     gui.add(transDuration.setup("Transition duration", 1000, 500, 5000)); 
     gui.add(focusFollowSpeed.setup("Focus follow speed", 0.2, 0.05, 0.5));  
 
@@ -64,7 +60,25 @@ void ofApp::setup() {
     gui.add(minMovementThreshold.setup("minMovementThreshold", 0.05, 0.01, 0.2));
     
     // Initialize diplay 
-    setupDisplay();
+    inputWidth = grabber.getWidth(); 
+    inputHeight = grabber.getHeight();
+
+    outputWidth = ofGetWidth();
+    outputHeight = ofGetHeight(); 
+
+    // Calculate camera and display aspect ratios
+    cameraAspectRatio = inputWidth / static_cast<float>(inputHeight);
+    displayAspectRatio = outputWidth / static_cast<float>(outputHeight);
+
+    if (cameraAspectRatio > displayAspectRatio) { // Camera is wider than display
+        baseScale = outputHeight / static_cast<float>(inputHeight);
+    } else { // Camera is taller than display
+        baseScale = outputWidth / static_cast<float>(inputWidth);
+    }
+
+    // Calculate new dimensions
+    imageWidth = inputWidth * baseScale;
+    imageHeight = inputHeight * baseScale;
 
     // Initialize YOLO model 
     if (!yolo.setup("model", "classes.txt")) { 
@@ -88,34 +102,6 @@ void ofApp::setup() {
     
     // Initialize grid
     updateGrid();
-}
-
-void ofApp::setupDisplay() { 
-    inputWidth = grabber.getWidth(); 
-    inputHeight = grabber.getHeight();
-    
-    // If display dimension set by user
-    if (displayWidth != ofGetWidth() || displayHeight != ofGetHeight()) {
-        outputWidth = displayWidth;
-        outputHeight = displayHeight;
-    } else {
-        outputWidth = ofGetWidth();
-        outputHeight = ofGetHeight(); 
-    }
-
-    // Calculate camera and display aspect ratios
-    cameraAspectRatio = inputWidth / static_cast<float>(inputHeight);
-    displayAspectRatio = outputWidth / static_cast<float>(outputHeight);
-
-    if (cameraAspectRatio > displayAspectRatio) { // Camera is wider than display
-        baseScale = outputHeight / static_cast<float>(inputHeight);
-    } else { // Camera is taller than display
-        baseScale = outputWidth / static_cast<float>(inputWidth);
-    }
-
-    // Calculate new dimensions
-    imageWidth = inputWidth * baseScale;
-    imageHeight = inputHeight * baseScale;
 }
 
 void ofApp::update() {
@@ -456,10 +442,6 @@ void ofApp::keyPressed(int key) {
     }
 }
 
-void ofApp::displayParametersChanged(int& value) {
-    setupDisplay();
-}
-
 void ofApp::exit() {
     if (grabber.isInitialized()) {
         grabber.close();
@@ -472,7 +454,4 @@ void ofApp::exit() {
     }
 
     trackedPeople.clear();
-
-    displayWidth.removeListener(this, &ofApp::displayParametersChanged);
-    displayHeight.removeListener(this, &ofApp::displayParametersChanged);
 }

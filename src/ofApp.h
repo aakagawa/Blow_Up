@@ -23,8 +23,6 @@ public:
     void draw() override;
     void exit() override;
 
-    void setupDisplay();
-
     void processFrame(ofPixels pixels);
 
     void updateGrid();
@@ -32,8 +30,6 @@ public:
     void offsetCells();
 
     void keyPressed(int key) override;
-
-    void displayParametersChanged(int& value);
 
 private:
     ofxPanel gui;
@@ -93,7 +89,7 @@ private:
 
     int activePersonCount;
     ofxIntField inactiveTimeout; 
-    int expiryTime = 60000; 
+    int expiryTime = 30000; 
 
     static const int MAX_ROWS = 256;
     static const int MAX_COLS = 256;
