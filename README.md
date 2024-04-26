@@ -29,7 +29,7 @@ git submodule update --init --recursive
 `include/` to `/usr/loca/include`\
 `lib/` to `/usr/local/lib/` 
 
-4. Setup YOLOv4. Copy data from example_yolo_v4. (Replace PORJECT with the path your OF project folder). 
+4. Setup YOLOv4. Copy data from example_yolo_v4. (Replace PROJECT with the path to your OF project folder). 
 ```
 cd ofxTensorFlow2
 cp -r example_yolo_v4/bin/data/* PROJECT/bin/data/
