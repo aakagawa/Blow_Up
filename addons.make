@@ -1,2 +1,3 @@
 ofxGui
 ofxTensorFlow2
+ofxXmlSettings

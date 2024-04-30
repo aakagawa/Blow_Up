@@ -12,7 +12,7 @@
 	],
 	"settings": {
 		"files.associations": {
-			"chrono": "cpp"
+			"future": "cpp"
 		}
 	}
 }

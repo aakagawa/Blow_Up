@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxGui.h"
+#include "ofxXmlSettings.h"
 #include "ofxTensorFlow2.h"
 #include "ofxYolo.h"
 #include <future>
@@ -15,13 +16,16 @@ struct TrackedPerson {
     TrackedPerson(glm::vec2 pos, float area, uint64_t time) : position(pos), size(area), moveTimestamp(time) {}
 };
 
-class ofApp : public ofBaseApp {
+class ofApp : public ofBaseApp {    
 public:
     // Lifecycle methods
     void setup() override;
     void update() override;
     void draw() override;
     void exit() override;
+
+    void saveSettings();
+    void loadSettings();
 
     void processFrame(ofPixels pixels);
 
@@ -35,6 +39,8 @@ private:
     ofxPanel gui;
     bool showGui = true;
     ofxLabel displaySettings, gridSettings, animationSettings, detectionSettings, advancedSettings; 
+    
+    string settingsFile = "settings.xml";
 
     ofVideoGrabber grabber; 
     ofImage image;
@@ -99,14 +105,18 @@ private:
     int gridRefreshInterval;
     ofxFloatField maxGridProbability; 
     float cellWidth, cellHeight;
-    ofxIntField cellOutline;
+
+    ofxIntField outlineR, outlineG, outlineB;
+    ofxIntField cellOutlineWidth;
 
     glm::vec2 bigCells[MAX_ROWS][MAX_COLS];
     int rowSpan, colSpan;
     int n1x2CellCount, n2x1CellCount, n2x2CellCount;
     ofxIntField max1x2Cell, max2x1Cell, max2x2Cell, bigCellScale;
 
-    ofxFloatField scaleFactor;
+    ofxIntField zoomFactor;
+    int lastZoomFactor;
+    float scaleFactor;
 
     glm::vec2 offsetFactors[MAX_ROWS][MAX_COLS];
     ofxFloatField offsetFactorX, offsetFactorY;

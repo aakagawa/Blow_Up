@@ -1,650 +1,1319 @@
-// !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 54;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		"0172F0F4-6253-4723-AA7A-421D66351A5B" /* libtensorflow.2.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = "5D36F75B-B93C-4E01-98EB-D677866FEC30" /* libtensorflow.2.dylib */; };
-		"1A37BE0C-776D-4CF2-8B6B-CC8E8381D48D" /* ofxSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "1647B7B1-D83A-4A83-BD2C-E671ACBD0510" /* ofxSlider.cpp */; };
-		"3BAA5D51-4F3C-42CC-89AC-6C58330DCF85" /* libtensorflow.2.8.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = "E86A4A3B-4A4D-45C9-BF8D-EEFC07E7C38A" /* libtensorflow.2.8.0.dylib */; };
-		"463F67F0-85A3-4CA2-9622-0E2694579A65" /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "746F9988-4BFD-47EE-A1E0-A437E4B6F78E" /* ofxToggle.cpp */; };
-		"4A70D4AC-790B-4C60-B270-764075EF5386" /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "550B2A8E-C51F-4DC3-90D7-4818D96583A8" /* ofxButton.cpp */; };
-		"58FD8290-3430-436B-B2B9-D4BF4448C86D" /* libtensorflow_framework.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = "0D9D0DEB-7913-4BE9-BFAD-DA048FE6B3CD" /* libtensorflow_framework.dylib */; };
-		"620F4046-7525-4261-9ECC-E6A8BC2ADEA7" /* ofxInputField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "47DCDB2C-2CAA-4518-B57F-6C4997290063" /* ofxInputField.cpp */; };
-		"6547460F-83B3-4137-8D0E-2CCBE6416F57" /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "CA24C453-697C-42E3-BAF2-4B00E96C55FD" /* ofxSliderGroup.cpp */; };
-		"6701922E-8B8A-47F1-9727-8C89751B98CC" /* ofxBaseGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "741EA4D5-FA89-438E-BE99-3FAE5249A87A" /* ofxBaseGui.cpp */; };
-		"767FCF11-E6C8-4A12-8FB8-B6E897ABC947" /* ofxColorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "EED6BFBE-D6D6-44F2-8362-A0D2A84CC3AD" /* ofxColorPicker.cpp */; };
-		"7B2252CD-168D-4788-A2C4-865548153381" /* ofxTF2ThreadedModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "70FCE8D3-7C9C-49D4-846E-CEB6BF8DF644" /* ofxTF2ThreadedModel.cpp */; };
-		"7F9078F9-D20A-4C1D-9DCA-07AE1CC2F143" /* libtensorflow.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = "53A578FB-A2F1-467E-9F98-239AE9845DDF" /* libtensorflow.dylib */; };
-		"8973EDAC-0A83-4A89-B4CC-8F39CE2F0284" /* ofxTensorFlow2Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "946DEB07-5CE2-490E-BCE5-3B00F59D1979" /* ofxTensorFlow2Utils.cpp */; };
-		"C61B7054-3601-4699-BC91-63654151A803" /* libtensorflow_framework.2.8.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = "7A6E31FB-EAC4-48F5-A007-8041D38EDF34" /* libtensorflow_framework.2.8.0.dylib */; };
-		"C8E6E3CF-A21E-448C-9B82-A7816BA3509E" /* ofxTF2Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "AD589992-C6E2-4B5B-B2E9-65F65EB30C4B" /* ofxTF2Model.cpp */; };
-		"E222BDB6-EFFA-4E5B-9C8A-F3CD02BECD46" /* libtensorflow_framework.2.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = "385440C6-B790-4F8C-8CE0-80C8BA415A1E" /* libtensorflow_framework.2.dylib */; };
-		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
-		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
-		"EEBCB14A-A915-4922-9B96-678FC9266A89" /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "7061A244-72C8-4846-A35A-7E866CE349C7" /* ofxPanel.cpp */; };
-		"F3D8FC57-9663-4CA1-A73F-B6A4B8F649B7" /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "60E64508-9647-4961-85EA-DBAF62AD4D51" /* ofxLabel.cpp */; };
-		"F95DED28-C3C8-40E2-ACBE-C0C02A06404C" /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = "6A0461BF-17D0-4D46-BBC7-11EB59EE5EA1" /* ofxGuiGroup.cpp */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		E4A5B60F29BAAAE400C2D356 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				"7F9078F9-D20A-4C1D-9DCA-07AE1CC2F143" /* libtensorflow.dylib in CopyFiles */,
-				"C61B7054-3601-4699-BC91-63654151A803" /* libtensorflow_framework.2.8.0.dylib in CopyFiles */,
-				"E222BDB6-EFFA-4E5B-9C8A-F3CD02BECD46" /* libtensorflow_framework.2.dylib in CopyFiles */,
-				"0172F0F4-6253-4723-AA7A-421D66351A5B" /* libtensorflow.2.dylib in CopyFiles */,
-				"3BAA5D51-4F3C-42CC-89AC-6C58330DCF85" /* libtensorflow.2.8.0.dylib in CopyFiles */,
-				"58FD8290-3430-436B-B2B9-D4BF4448C86D" /* libtensorflow_framework.dylib in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E4C2427710CC5ABF004149E2 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
-/* Begin PBXFileReference section */
-		"05367938-36FE-4851-BD1E-40DF52F1DC7C" /* c_api_experimental.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c_api_experimental.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/c_api_experimental.h; sourceTree = SOURCE_ROOT; };
-		"0D9D0DEB-7913-4BE9-BFAD-DA048FE6B3CD" /* libtensorflow_framework.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtensorflow_framework.dylib; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.dylib; sourceTree = SOURCE_ROOT; };
-		"1647B7B1-D83A-4A83-BD2C-E671ACBD0510" /* ofxSlider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxSlider.cpp; path = ../../../addons/ofxGui/src/ofxSlider.cpp; sourceTree = SOURCE_ROOT; };
-		191CD6FA2847E21E0085CBB6 /* of.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = of.entitlements; sourceTree = "<group>"; };
-		191EF70929D778A400F35F26 /* openFrameworks */ = {isa = PBXFileReference; lastKnownFileType = folder; name = openFrameworks; path = ../../../libs/openFrameworks; sourceTree = SOURCE_ROOT; };
-		"1CC67F4E-D9F8-41DC-B585-19117DB52A38" /* ofxPanel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxPanel.h; path = ../../../addons/ofxGui/src/ofxPanel.h; sourceTree = SOURCE_ROOT; };
-		"26FC0A6F-AD1E-4B9C-BC09-8E3CE954A13D" /* ofxTensorFlow2.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxTensorFlow2.h; path = ../../../addons/ofxTensorFlow2/src/ofxTensorFlow2.h; sourceTree = SOURCE_ROOT; };
-		"2C922028-81C6-4247-8E7B-8AAD2ECE2216" /* c_api_macros.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c_api_macros.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/c_api_macros.h; sourceTree = SOURCE_ROOT; };
-		"2FEAF3D6-3314-4738-A2CD-3C145F82A62F" /* ofxTF2Model.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxTF2Model.h; path = ../../../addons/ofxTensorFlow2/src/ofxTF2Model.h; sourceTree = SOURCE_ROOT; };
-		"322B0910-50DD-4676-B837-EBFD1347CF5F" /* tf_tstring.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = tf_tstring.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_tstring.h; sourceTree = SOURCE_ROOT; };
-		"345B93F3-DA3B-4A10-B0C2-08E682353158" /* ofxBaseGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxBaseGui.h; path = ../../../addons/ofxGui/src/ofxBaseGui.h; sourceTree = SOURCE_ROOT; };
-		"36A21DAC-5536-4197-AFDC-7F65646E23BD" /* ofxGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGui.h; path = ../../../addons/ofxGui/src/ofxGui.h; sourceTree = SOURCE_ROOT; };
-		"385440C6-B790-4F8C-8CE0-80C8BA415A1E" /* libtensorflow_framework.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtensorflow_framework.2.dylib; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.dylib; sourceTree = SOURCE_ROOT; };
-		"390E4AB8-3A69-4485-82BE-CBFD61B84CAA" /* ctstring_internal.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ctstring_internal.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform/ctstring_internal.h; sourceTree = SOURCE_ROOT; };
-		"3B696DFF-5623-4ADD-9553-7A11AF19AF4E" /* ofxGuiUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGuiUtils.h; path = ../../../addons/ofxGui/src/ofxGuiUtils.h; sourceTree = SOURCE_ROOT; };
-		"46ACEF98-BE23-42BF-A98A-987B5E4A8461" /* ops.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ops.h; path = ../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/ops.h; sourceTree = SOURCE_ROOT; };
-		"47DCDB2C-2CAA-4518-B57F-6C4997290063" /* ofxInputField.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxInputField.cpp; path = ../../../addons/ofxGui/src/ofxInputField.cpp; sourceTree = SOURCE_ROOT; };
-		"4A424DF9-4EE5-428C-B350-293495B8B160" /* tensor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = tensor.h; path = ../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/tensor.h; sourceTree = SOURCE_ROOT; };
-		"512FE27E-6707-441D-93AC-D483E08976B1" /* dlpack.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = dlpack.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager/dlpack.h; sourceTree = SOURCE_ROOT; };
-		"5363E905-6A81-4A55-A8AF-9BE907A4A6F3" /* tf_attrtype.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = tf_attrtype.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_attrtype.h; sourceTree = SOURCE_ROOT; };
-		"53A578FB-A2F1-467E-9F98-239AE9845DDF" /* libtensorflow.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtensorflow.dylib; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.dylib; sourceTree = SOURCE_ROOT; };
-		"550B2A8E-C51F-4DC3-90D7-4818D96583A8" /* ofxButton.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxButton.cpp; path = ../../../addons/ofxGui/src/ofxButton.cpp; sourceTree = SOURCE_ROOT; };
-		"5B0F93DD-AD18-4E58-AE20-34617D4E2666" /* raw_ops.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = raw_ops.h; path = ../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/raw_ops.h; sourceTree = SOURCE_ROOT; };
-		"5D36F75B-B93C-4E01-98EB-D677866FEC30" /* libtensorflow.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtensorflow.2.dylib; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.dylib; sourceTree = SOURCE_ROOT; };
-		"60B7F312-910A-4F0E-AAFB-2FA5790C7AB4" /* c_api.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c_api.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/c_api.h; sourceTree = SOURCE_ROOT; };
-		"60E64508-9647-4961-85EA-DBAF62AD4D51" /* ofxLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxLabel.cpp; path = ../../../addons/ofxGui/src/ofxLabel.cpp; sourceTree = SOURCE_ROOT; };
-		"6A0461BF-17D0-4D46-BBC7-11EB59EE5EA1" /* ofxGuiGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxGuiGroup.cpp; path = ../../../addons/ofxGui/src/ofxGuiGroup.cpp; sourceTree = SOURCE_ROOT; };
-		"6CB2A684-020A-4F55-AB40-993972BCD75F" /* tf_datatype.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = tf_datatype.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_datatype.h; sourceTree = SOURCE_ROOT; };
-		"7061A244-72C8-4846-A35A-7E866CE349C7" /* ofxPanel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxPanel.cpp; path = ../../../addons/ofxGui/src/ofxPanel.cpp; sourceTree = SOURCE_ROOT; };
-		"70FCE8D3-7C9C-49D4-846E-CEB6BF8DF644" /* ofxTF2ThreadedModel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxTF2ThreadedModel.cpp; path = ../../../addons/ofxTensorFlow2/src/ofxTF2ThreadedModel.cpp; sourceTree = SOURCE_ROOT; };
-		"741EA4D5-FA89-438E-BE99-3FAE5249A87A" /* ofxBaseGui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxBaseGui.cpp; path = ../../../addons/ofxGui/src/ofxBaseGui.cpp; sourceTree = SOURCE_ROOT; };
-		"746F9988-4BFD-47EE-A1E0-A437E4B6F78E" /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxToggle.cpp; path = ../../../addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
-		"7A6E31FB-EAC4-48F5-A007-8041D38EDF34" /* libtensorflow_framework.2.8.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtensorflow_framework.2.8.0.dylib; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.8.0.dylib; sourceTree = SOURCE_ROOT; };
-		"84BABDF8-8AA3-4125-A155-4AEE18F4D2E5" /* c_api_experimental.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c_api_experimental.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager/c_api_experimental.h; sourceTree = SOURCE_ROOT; };
-		"87997B17-44F6-4B2F-8CBB-B7800D282243" /* ofxGuiGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxGuiGroup.h; path = ../../../addons/ofxGui/src/ofxGuiGroup.h; sourceTree = SOURCE_ROOT; };
-		"880802A8-E842-4CEF-8BF5-25EE79B94F50" /* c_api.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c_api.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager/c_api.h; sourceTree = SOURCE_ROOT; };
-		"904834FF-372E-4323-846B-B3BCCD289709" /* ctstring.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ctstring.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform/ctstring.h; sourceTree = SOURCE_ROOT; };
-		"9370A20C-2A7D-4DD0-9403-DEBA283621B1" /* ofxTF2ThreadedModel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxTF2ThreadedModel.h; path = ../../../addons/ofxTensorFlow2/src/ofxTF2ThreadedModel.h; sourceTree = SOURCE_ROOT; };
-		"946DEB07-5CE2-490E-BCE5-3B00F59D1979" /* ofxTensorFlow2Utils.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxTensorFlow2Utils.cpp; path = ../../../addons/ofxTensorFlow2/src/ofxTensorFlow2Utils.cpp; sourceTree = SOURCE_ROOT; };
-		"98D72B9B-0402-4A3E-9A91-E1D944A64974" /* tf_file_statistics.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = tf_file_statistics.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_file_statistics.h; sourceTree = SOURCE_ROOT; };
-		"9D3BB92B-DBAB-4AD2-A27E-B6A24EBC82BB" /* ofxColorPicker.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxColorPicker.h; path = ../../../addons/ofxGui/src/ofxColorPicker.h; sourceTree = SOURCE_ROOT; };
-		"9D6C89BE-7311-4CE4-AC00-10A5A077C0A1" /* model.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = model.h; path = ../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/model.h; sourceTree = SOURCE_ROOT; };
-		"A0FFBDA6-AE5D-49EA-B896-699B55EE1BB8" /* ofxTensorFlow2Utils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxTensorFlow2Utils.h; path = ../../../addons/ofxTensorFlow2/src/ofxTensorFlow2Utils.h; sourceTree = SOURCE_ROOT; };
-		"A1B1991F-8FEE-4CD0-8B89-121700305B50" /* cppflow.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = cppflow.h; path = ../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/cppflow.h; sourceTree = SOURCE_ROOT; };
-		"AD589992-C6E2-4B5B-B2E9-65F65EB30C4B" /* ofxTF2Model.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxTF2Model.cpp; path = ../../../addons/ofxTensorFlow2/src/ofxTF2Model.cpp; sourceTree = SOURCE_ROOT; };
-		"AF772274-2E2B-449C-9C36-65724C01D8AD" /* context.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = context.h; path = ../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/context.h; sourceTree = SOURCE_ROOT; };
-		"B9311DE5-70E9-4F01-897E-5E46B297FE56" /* ofxInputField.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxInputField.h; path = ../../../addons/ofxGui/src/ofxInputField.h; sourceTree = SOURCE_ROOT; };
-		"C6B99429-F3C2-40FF-A81E-B67023285EE1" /* ofxSliderGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxSliderGroup.h; path = ../../../addons/ofxGui/src/ofxSliderGroup.h; sourceTree = SOURCE_ROOT; };
-		"C9B482BE-F20F-443C-BDE2-DE8FF822E8D1" /* ofxButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxButton.h; path = ../../../addons/ofxGui/src/ofxButton.h; sourceTree = SOURCE_ROOT; };
-		"CA24C453-697C-42E3-BAF2-4B00E96C55FD" /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxSliderGroup.cpp; path = ../../../addons/ofxGui/src/ofxSliderGroup.cpp; sourceTree = SOURCE_ROOT; };
-		"D2A3F87F-3F7D-46E0-9159-97AEE18E2EA2" /* ofxLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxLabel.h; path = ../../../addons/ofxGui/src/ofxLabel.h; sourceTree = SOURCE_ROOT; };
-		"D4ABDFA0-CE48-4C01-BB77-AAAD1328C99B" /* ofxToggle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxToggle.h; path = ../../../addons/ofxGui/src/ofxToggle.h; sourceTree = SOURCE_ROOT; };
-		"DD55F8E0-1608-4F77-9EA7-B63613465F9D" /* tensor_interface.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = tensor_interface.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tensor_interface.h; sourceTree = SOURCE_ROOT; };
-		E4B69B5B0A3A1756003C02F2 /* Blow_Up_3_0_2Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blow_Up_3_0_2Debug.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
-		E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofApp.cpp; path = src/ofApp.cpp; sourceTree = SOURCE_ROOT; };
-		E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
-		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
-		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
-		"E86A4A3B-4A4D-45C9-BF8D-EEFC07E7C38A" /* libtensorflow.2.8.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtensorflow.2.8.0.dylib; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.8.0.dylib; sourceTree = SOURCE_ROOT; };
-		"ED39BE08-9481-4632-9BC4-B4DA1761FC98" /* ofxSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxSlider.h; path = ../../../addons/ofxGui/src/ofxSlider.h; sourceTree = SOURCE_ROOT; };
-		"EDB9F887-6860-48EB-8848-13C98F274ED2" /* defer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = defer.h; path = ../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/defer.h; sourceTree = SOURCE_ROOT; };
-		"EE428CBC-BBEB-4528-928A-6E73F6517836" /* tf_tensor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = tf_tensor.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_tensor.h; sourceTree = SOURCE_ROOT; };
-		"EED6BFBE-D6D6-44F2-8362-A0D2A84CC3AD" /* ofxColorPicker.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ofxColorPicker.cpp; path = ../../../addons/ofxGui/src/ofxColorPicker.cpp; sourceTree = SOURCE_ROOT; };
-		"F1415709-F59B-4E85-813D-EA0847060F38" /* datatype.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = datatype.h; path = ../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/datatype.h; sourceTree = SOURCE_ROOT; };
-		"F87EFE71-0DC4-4E17-9FD0-BB2D8F226356" /* tf_status.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = tf_status.h; path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_status.h; sourceTree = SOURCE_ROOT; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		E4B69B590A3A1756003C02F2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		"161939E1-7108-4C4E-827B-E2F27C0AE1B7" /* src */ = {
-			isa = PBXGroup;
-			children = (
-				"AD589992-C6E2-4B5B-B2E9-65F65EB30C4B" /* ofxTF2Model.cpp */,
-				"2FEAF3D6-3314-4738-A2CD-3C145F82A62F" /* ofxTF2Model.h */,
-				"70FCE8D3-7C9C-49D4-846E-CEB6BF8DF644" /* ofxTF2ThreadedModel.cpp */,
-				"9370A20C-2A7D-4DD0-9403-DEBA283621B1" /* ofxTF2ThreadedModel.h */,
-				"26FC0A6F-AD1E-4B9C-BC09-8E3CE954A13D" /* ofxTensorFlow2.h */,
-				"946DEB07-5CE2-490E-BCE5-3B00F59D1979" /* ofxTensorFlow2Utils.cpp */,
-				"A0FFBDA6-AE5D-49EA-B896-699B55EE1BB8" /* ofxTensorFlow2Utils.h */,
-			);
-			name = src;
-			path = ../../../addons/ofxTensorFlow2/src;
-			sourceTree = SOURCE_ROOT;
-		};
-		"296A0F04-04AE-40B4-8AB8-502B9576B72F" /* ofxTensorFlow2 */ = {
-			isa = PBXGroup;
-			children = (
-				"E69B9FA5-AD83-4CBE-B425-2BE85326180D" /* libs */,
-				"161939E1-7108-4C4E-827B-E2F27C0AE1B7" /* src */,
-			);
-			name = ofxTensorFlow2;
-			sourceTree = SOURCE_ROOT;
-		};
-		"2E7AF0A6-24F6-446A-B440-C36DCC7C7EFC" /* core */ = {
-			isa = PBXGroup;
-			children = (
-				"2ECC282C-FB9C-4482-98C4-D93E41293461" /* platform */,
-			);
-			name = core;
-			path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core;
-			sourceTree = SOURCE_ROOT;
-		};
-		"2ECC282C-FB9C-4482-98C4-D93E41293461" /* platform */ = {
-			isa = PBXGroup;
-			children = (
-				"904834FF-372E-4323-846B-B3BCCD289709" /* ctstring.h */,
-				"390E4AB8-3A69-4485-82BE-CBFD61B84CAA" /* ctstring_internal.h */,
-			);
-			name = platform;
-			path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform;
-			sourceTree = SOURCE_ROOT;
-		};
-		"342E6E9D-BF67-4C0E-A52B-A669A79962E5" /* include */ = {
-			isa = PBXGroup;
-			children = (
-				"A8F17DBD-3B46-4672-AA69-EF5564A0937F" /* tensorflow */,
-			);
-			name = include;
-			path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include;
-			sourceTree = SOURCE_ROOT;
-		};
-		"453EC006-7442-4934-AE11-E36AAA026B30" /* ofxGui */ = {
-			isa = PBXGroup;
-			children = (
-				"4742230D-3FB3-482A-BEB8-238BCC0691AD" /* src */,
-			);
-			name = ofxGui;
-			path = ../../../addons/ofxGui;
-			sourceTree = SOURCE_ROOT;
-		};
-		"4742230D-3FB3-482A-BEB8-238BCC0691AD" /* src */ = {
-			isa = PBXGroup;
-			children = (
-				"741EA4D5-FA89-438E-BE99-3FAE5249A87A" /* ofxBaseGui.cpp */,
-				"345B93F3-DA3B-4A10-B0C2-08E682353158" /* ofxBaseGui.h */,
-				"550B2A8E-C51F-4DC3-90D7-4818D96583A8" /* ofxButton.cpp */,
-				"C9B482BE-F20F-443C-BDE2-DE8FF822E8D1" /* ofxButton.h */,
-				"EED6BFBE-D6D6-44F2-8362-A0D2A84CC3AD" /* ofxColorPicker.cpp */,
-				"9D3BB92B-DBAB-4AD2-A27E-B6A24EBC82BB" /* ofxColorPicker.h */,
-				"36A21DAC-5536-4197-AFDC-7F65646E23BD" /* ofxGui.h */,
-				"6A0461BF-17D0-4D46-BBC7-11EB59EE5EA1" /* ofxGuiGroup.cpp */,
-				"87997B17-44F6-4B2F-8CBB-B7800D282243" /* ofxGuiGroup.h */,
-				"3B696DFF-5623-4ADD-9553-7A11AF19AF4E" /* ofxGuiUtils.h */,
-				"47DCDB2C-2CAA-4518-B57F-6C4997290063" /* ofxInputField.cpp */,
-				"B9311DE5-70E9-4F01-897E-5E46B297FE56" /* ofxInputField.h */,
-				"60E64508-9647-4961-85EA-DBAF62AD4D51" /* ofxLabel.cpp */,
-				"D2A3F87F-3F7D-46E0-9159-97AEE18E2EA2" /* ofxLabel.h */,
-				"7061A244-72C8-4846-A35A-7E866CE349C7" /* ofxPanel.cpp */,
-				"1CC67F4E-D9F8-41DC-B585-19117DB52A38" /* ofxPanel.h */,
-				"1647B7B1-D83A-4A83-BD2C-E671ACBD0510" /* ofxSlider.cpp */,
-				"ED39BE08-9481-4632-9BC4-B4DA1761FC98" /* ofxSlider.h */,
-				"CA24C453-697C-42E3-BAF2-4B00E96C55FD" /* ofxSliderGroup.cpp */,
-				"C6B99429-F3C2-40FF-A81E-B67023285EE1" /* ofxSliderGroup.h */,
-				"746F9988-4BFD-47EE-A1E0-A437E4B6F78E" /* ofxToggle.cpp */,
-				"D4ABDFA0-CE48-4C01-BB77-AAAD1328C99B" /* ofxToggle.h */,
-			);
-			name = src;
-			path = ../../../addons/ofxGui/src;
-			sourceTree = SOURCE_ROOT;
-		};
-		"47902C0D-F6D4-44D7-BC54-056C2705C9B4" /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				"EEE80D4B-CB6B-4CC2-A694-217ABAE1856A" /* osx */,
-			);
-			name = lib;
-			sourceTree = SOURCE_ROOT;
-		};
-		"65BBF7B9-0F52-4867-9503-28440BB43154" /* cppflow */ = {
-			isa = PBXGroup;
-			children = (
-				"A89CF0D7-31D2-4855-B5EA-2A8F267ED4BA" /* include */,
-			);
-			name = cppflow;
-			path = ../../../addons/ofxTensorFlow2/libs/cppflow;
-			sourceTree = SOURCE_ROOT;
-		};
-		"6D9B08C7-20CE-4E10-91B1-339EE41EF391" /* tensorflow */ = {
-			isa = PBXGroup;
-			children = (
-				"47902C0D-F6D4-44D7-BC54-056C2705C9B4" /* lib */,
-				"342E6E9D-BF67-4C0E-A52B-A669A79962E5" /* include */,
-			);
-			name = tensorflow;
-			sourceTree = SOURCE_ROOT;
-		};
-		"91446E56-FA76-4E35-B430-6F3BF2881F04" /* eager */ = {
-			isa = PBXGroup;
-			children = (
-				"880802A8-E842-4CEF-8BF5-25EE79B94F50" /* c_api.h */,
-				"84BABDF8-8AA3-4125-A155-4AEE18F4D2E5" /* c_api_experimental.h */,
-				"512FE27E-6707-441D-93AC-D483E08976B1" /* dlpack.h */,
-			);
-			name = eager;
-			path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager;
-			sourceTree = SOURCE_ROOT;
-		};
-		"A89CF0D7-31D2-4855-B5EA-2A8F267ED4BA" /* include */ = {
-			isa = PBXGroup;
-			children = (
-				"B79F0CEE-48D0-4970-874A-8600176E107A" /* cppflow */,
-			);
-			name = include;
-			path = ../../../addons/ofxTensorFlow2/libs/cppflow/include;
-			sourceTree = SOURCE_ROOT;
-		};
-		"A8F17DBD-3B46-4672-AA69-EF5564A0937F" /* tensorflow */ = {
-			isa = PBXGroup;
-			children = (
-				"F940ECD8-F4D9-4BA0-80C1-476EA7E3911E" /* c */,
-				"2E7AF0A6-24F6-446A-B440-C36DCC7C7EFC" /* core */,
-			);
-			name = tensorflow;
-			path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow;
-			sourceTree = SOURCE_ROOT;
-		};
-		"B79F0CEE-48D0-4970-874A-8600176E107A" /* cppflow */ = {
-			isa = PBXGroup;
-			children = (
-				"AF772274-2E2B-449C-9C36-65724C01D8AD" /* context.h */,
-				"A1B1991F-8FEE-4CD0-8B89-121700305B50" /* cppflow.h */,
-				"F1415709-F59B-4E85-813D-EA0847060F38" /* datatype.h */,
-				"EDB9F887-6860-48EB-8848-13C98F274ED2" /* defer.h */,
-				"9D6C89BE-7311-4CE4-AC00-10A5A077C0A1" /* model.h */,
-				"46ACEF98-BE23-42BF-A98A-987B5E4A8461" /* ops.h */,
-				"5B0F93DD-AD18-4E58-AE20-34617D4E2666" /* raw_ops.h */,
-				"4A424DF9-4EE5-428C-B350-293495B8B160" /* tensor.h */,
-			);
-			name = cppflow;
-			path = ../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow;
-			sourceTree = SOURCE_ROOT;
-		};
-		BB4B014C10F69532006C3DED /* addons */ = {
-			isa = PBXGroup;
-			children = (
-				"453EC006-7442-4934-AE11-E36AAA026B30" /* ofxGui */,
-				"296A0F04-04AE-40B4-8AB8-502B9576B72F" /* ofxTensorFlow2 */,
-			);
-			name = addons;
-			path = ../../../addons;
-			sourceTree = "<group>";
-		};
-		E4B69B4A0A3A1720003C02F2 = {
-			isa = PBXGroup;
-			children = (
-				191CD6FA2847E21E0085CBB6 /* of.entitlements */,
-				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
-				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
-				E4B69E1C0A3A1BDC003C02F2 /* src */,
-				191EF70929D778A400F35F26 /* openFrameworks */,
-				BB4B014C10F69532006C3DED /* addons */,
-				E4B69B5B0A3A1756003C02F2 /* Blow_Up_3_0_2Debug.app */,
-			);
-			sourceTree = "<group>";
-		};
-		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
-				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
-			);
-			path = src;
-			sourceTree = SOURCE_ROOT;
-		};
-		"E69B9FA5-AD83-4CBE-B425-2BE85326180D" /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				"6D9B08C7-20CE-4E10-91B1-339EE41EF391" /* tensorflow */,
-				"65BBF7B9-0F52-4867-9503-28440BB43154" /* cppflow */,
-			);
-			name = libs;
-			sourceTree = SOURCE_ROOT;
-		};
-		"EEE80D4B-CB6B-4CC2-A694-217ABAE1856A" /* osx */ = {
-			isa = PBXGroup;
-			children = (
-				"53A578FB-A2F1-467E-9F98-239AE9845DDF" /* libtensorflow.dylib */,
-				"7A6E31FB-EAC4-48F5-A007-8041D38EDF34" /* libtensorflow_framework.2.8.0.dylib */,
-				"385440C6-B790-4F8C-8CE0-80C8BA415A1E" /* libtensorflow_framework.2.dylib */,
-				"5D36F75B-B93C-4E01-98EB-D677866FEC30" /* libtensorflow.2.dylib */,
-				"E86A4A3B-4A4D-45C9-BF8D-EEFC07E7C38A" /* libtensorflow.2.8.0.dylib */,
-				"0D9D0DEB-7913-4BE9-BFAD-DA048FE6B3CD" /* libtensorflow_framework.dylib */,
-			);
-			name = osx;
-			sourceTree = SOURCE_ROOT;
-		};
-		"F940ECD8-F4D9-4BA0-80C1-476EA7E3911E" /* c */ = {
-			isa = PBXGroup;
-			children = (
-				"60B7F312-910A-4F0E-AAFB-2FA5790C7AB4" /* c_api.h */,
-				"05367938-36FE-4851-BD1E-40DF52F1DC7C" /* c_api_experimental.h */,
-				"2C922028-81C6-4247-8E7B-8AAD2ECE2216" /* c_api_macros.h */,
-				"91446E56-FA76-4E35-B430-6F3BF2881F04" /* eager */,
-				"DD55F8E0-1608-4F77-9EA7-B63613465F9D" /* tensor_interface.h */,
-				"5363E905-6A81-4A55-A8AF-9BE907A4A6F3" /* tf_attrtype.h */,
-				"6CB2A684-020A-4F55-AB40-993972BCD75F" /* tf_datatype.h */,
-				"98D72B9B-0402-4A3E-9A91-E1D944A64974" /* tf_file_statistics.h */,
-				"F87EFE71-0DC4-4E17-9FD0-BB2D8F226356" /* tf_status.h */,
-				"EE428CBC-BBEB-4528-928A-6E73F6517836" /* tf_tensor.h */,
-				"322B0910-50DD-4676-B837-EBFD1347CF5F" /* tf_tstring.h */,
-			);
-			name = c;
-			path = ../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c;
-			sourceTree = SOURCE_ROOT;
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* Blow_Up_3_0_2 */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "Blow_Up_3_0_2" */;
-			buildPhases = (
-				E42962A92163ECCD00A6A9E2 /* Run Script — Compile OF */,
-				E4B69B580A3A1756003C02F2 /* Sources */,
-				E4B69B590A3A1756003C02F2 /* Frameworks */,
-				E4C2427710CC5ABF004149E2 /* CopyFiles */,
-				E4A5B60F29BAAAE400C2D356 /* CopyFiles */,
-				19B789C429E5AB4A0082E9B8 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Blow_Up_3_0_2;
-			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* Blow_Up_3_0_2Debug.app */;
-			productType = "com.apple.product-type.application";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0600;
-			};
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Blow_Up_3_0_2" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = en;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-			);
-			mainGroup = E4B69B4A0A3A1720003C02F2;
-			productRefGroup = E4B69B4A0A3A1720003C02F2;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				E4B69B5A0A3A1756003C02F2 /* Blow_Up_3_0_2 */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		19B789C429E5AB4A0082E9B8 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$OF_PATH/scripts/osx/xcode_project.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E42962A92163ECCD00A6A9E2 /* Run Script — Compile OF */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script — Compile OF";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"💾 Compiling Openframeworks\"\nxcodebuild -project \"$OF_PATH/libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj\" -target openFrameworks -configuration \"${CONFIGURATION}\"  CLANG_CXX_LANGUAGE_STANDARD=$CLANG_CXX_LANGUAGE_STANDARD MACOSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET GCC_PREPROCESSOR_DEFINITIONS=$USER_PREPROCESSOR_DEFINITIONS\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		E4B69B580A3A1756003C02F2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
-				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
-				"6701922E-8B8A-47F1-9727-8C89751B98CC" /* ofxBaseGui.cpp in Sources */,
-				"4A70D4AC-790B-4C60-B270-764075EF5386" /* ofxButton.cpp in Sources */,
-				"767FCF11-E6C8-4A12-8FB8-B6E897ABC947" /* ofxColorPicker.cpp in Sources */,
-				"F95DED28-C3C8-40E2-ACBE-C0C02A06404C" /* ofxGuiGroup.cpp in Sources */,
-				"620F4046-7525-4261-9ECC-E6A8BC2ADEA7" /* ofxInputField.cpp in Sources */,
-				"F3D8FC57-9663-4CA1-A73F-B6A4B8F649B7" /* ofxLabel.cpp in Sources */,
-				"EEBCB14A-A915-4922-9B96-678FC9266A89" /* ofxPanel.cpp in Sources */,
-				"1A37BE0C-776D-4CF2-8B6B-CC8E8381D48D" /* ofxSlider.cpp in Sources */,
-				"6547460F-83B3-4137-8D0E-2CCBE6416F57" /* ofxSliderGroup.cpp in Sources */,
-				"463F67F0-85A3-4CA2-9622-0E2694579A65" /* ofxToggle.cpp in Sources */,
-				"C8E6E3CF-A21E-448C-9B82-A7816BA3509E" /* ofxTF2Model.cpp in Sources */,
-				"7B2252CD-168D-4788-A2C4-865548153381" /* ofxTF2ThreadedModel.cpp in Sources */,
-				"8973EDAC-0A83-4A89-B4CC-8F39CE2F0284" /* ofxTensorFlow2Utils.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin XCBuildConfiguration section */
-		E4B69B4E0A3A1720003C02F2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = of.entitlements;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_TESTABILITY = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_UNUSED_VARIABLE = NO;
-				HEADER_SEARCH_PATHS = (
+	"archiveVersion": "1",
+	"classes": {},
+	"objectVersion": "54",
+	"objects": {
+		"03973D16-E2B7-40C9-AAC5-39FF55EB6CBC": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "c_api.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager/c_api.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"04608475-87A2-4F41-A5FE-E26BD0C59F35": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxToggle.cpp",
+			"path": "../../../addons/ofxGui/src/ofxToggle.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"065B5E80-8F11-451F-AA1B-73E315B42CA9": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSliderGroup.h",
+			"path": "../../../addons/ofxGui/src/ofxSliderGroup.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"067764FD-3653-48ED-B405-D3765D602205": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxTF2Model.cpp",
+			"path": "../../../addons/ofxTensorFlow2/src/ofxTF2Model.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"0683F589-8495-474B-A835-5A3B3844AFE4": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "defer.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/defer.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"0C0B57C5-BEA7-4D86-B333-717F08C6FD22": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tinyxmlparser.cpp",
+			"path": "../../../addons/ofxXmlSettings/libs/tinyxmlparser.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"0ED2851B-0F3A-4238-B5DB-10760DBE4F9A": {
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "compiled.mach-o.dylib",
+			"name": "libtensorflow.2.8.0.dylib",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.8.0.dylib",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"131A845D-2010-46D0-9CFA-E5B6E94CE8C9": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxYolo.h",
+			"path": "src/ofxYolo.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"131AA979-0960-45D8-A29A-74E9A5CB22D4": {
+			"children": [
+				"3903371B-DCE1-47D0-97A1-2CC6C2219E08",
+				"5DEBDD5A-D581-4BC6-ACC3-27666C16DAA2",
+				"388CD1C3-A714-4E01-A914-13974E3AB236",
+				"CAAC3EB7-F8E7-48D6-94D2-662A3036B233",
+				"0ED2851B-0F3A-4238-B5DB-10760DBE4F9A",
+				"E61132F3-2712-48E7-9F5B-F4F823DF9905"
+			],
+			"isa": "PBXGroup",
+			"name": "osx",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"131FBCD3-FF48-4CD4-9D0B-ED47DDA64CB9": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxInputField.h",
+			"path": "../../../addons/ofxGui/src/ofxInputField.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"142CF805-3CE3-402C-9B9A-73CB38260CBE": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tinyxml.cpp",
+			"path": "../../../addons/ofxXmlSettings/libs/tinyxml.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"191CD6FA2847E21E0085CBB6": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "text.plist.entitlements",
+			"path": "of.entitlements",
+			"sourceTree": "<group>"
+		},
+		"191EF70929D778A400F35F26": {
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "folder",
+			"name": "openFrameworks",
+			"path": "../../../libs/openFrameworks",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"19B789C429E5AB4A0082E9B8": {
+			"buildActionMask": "2147483647",
+			"files": [],
+			"inputFileListPaths": [],
+			"inputPaths": [],
+			"isa": "PBXShellScriptBuildPhase",
+			"outputFileListPaths": [],
+			"outputPaths": [],
+			"runOnlyForDeploymentPostprocessing": "0",
+			"shellPath": "/bin/sh",
+			"shellScript": "\"$OF_PATH/scripts/osx/xcode_project.sh\"\n",
+			"showEnvVarsInLog": "0"
+		},
+		"203392D5-E3E9-49B5-9BBB-B2500A8A59F2": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "cppflow.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/cppflow.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"2268702C-8FCD-4B19-A1E6-00513DF41F8A": {
+			"fileRef": "5DC4D142-D895-4B83-8C82-2489D0F8D7C6",
+			"isa": "PBXBuildFile"
+		},
+		"249AE670-9960-43BF-8381-F6D7602AF3CB": {
+			"fileRef": "5DEBDD5A-D581-4BC6-ACC3-27666C16DAA2",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"27864BAE-40B7-4DF7-9E1B-EDC5184F4F85": {
+			"children": [
+				"D04B00FF-241E-446F-9F10-A95653C5F4BB",
+				"DE583442-9559-444A-8382-440678B985C8"
+			],
+			"isa": "PBXGroup",
+			"name": "platform",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"2798071B-CD02-456F-99FE-A2395C1FF102": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tinyxmlerror.cpp",
+			"path": "../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"2A101720-5A31-4C25-BA61-53DB10603D68": {
+			"fileRef": "067764FD-3653-48ED-B405-D3765D602205",
+			"isa": "PBXBuildFile"
+		},
+		"2F81B143-5A64-409A-B3B2-F51EEB97C6BA": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxButton.cpp",
+			"path": "../../../addons/ofxGui/src/ofxButton.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"3080B0A1-0F2B-42F6-BEF1-18966C9C250F": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxTF2Model.h",
+			"path": "../../../addons/ofxTensorFlow2/src/ofxTF2Model.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"321B968D-00F3-49B5-B19C-962709964E5D": {
+			"children": [
+				"03973D16-E2B7-40C9-AAC5-39FF55EB6CBC",
+				"A8B8AEB4-9EBD-4448-815F-C90D34B26710",
+				"7BC7C84F-4072-4193-9EE3-0E9B935C6DEA"
+			],
+			"isa": "PBXGroup",
+			"name": "eager",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"33AC6E2A-7142-4F62-8F7B-65D8488C4918": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSlider.h",
+			"path": "../../../addons/ofxGui/src/ofxSlider.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"386CEA51-3E39-4822-B4C4-544569D65725": {
+			"children": [
+				"58C72F9A-CFAE-4ADC-8BF0-118EADAD261C",
+				"AE6BB206-D4F3-497B-8768-86C3FD29A530",
+				"2F81B143-5A64-409A-B3B2-F51EEB97C6BA",
+				"E1CB1060-99DD-4732-AA14-D43F6D0677C8",
+				"BE87C7F2-9405-4076-9E41-0BF612ACE440",
+				"753F36CC-323B-44D6-827F-725413BF7483",
+				"5EF42D32-5AA8-4237-B7A1-282BE8BA725F",
+				"5DC4D142-D895-4B83-8C82-2489D0F8D7C6",
+				"74883B41-32DE-4CEC-94BD-0EDDE908D4BD",
+				"E2BE578A-B9C6-46CA-9E48-3710B05A45A2",
+				"493026A1-F167-4948-A4BD-FC64FD08D668",
+				"131FBCD3-FF48-4CD4-9D0B-ED47DDA64CB9",
+				"785BE630-5586-48B1-83AD-07143D63D41D",
+				"FCF04B42-BEC1-4FC6-8E7F-920A176BD167",
+				"CDE7FF44-B0E1-4215-AAC0-2A9A5A15843B",
+				"C14A2BEB-DA1B-419D-8D41-CACD3244D6F7",
+				"E1A7EF42-154B-4786-ABFE-3438CD35F2D9",
+				"33AC6E2A-7142-4F62-8F7B-65D8488C4918",
+				"EE7C09EB-35C0-4CD0-98A9-4E4016ED8859",
+				"065B5E80-8F11-451F-AA1B-73E315B42CA9",
+				"04608475-87A2-4F41-A5FE-E26BD0C59F35",
+				"8E6DE40C-FF11-4DD4-B4FA-64A5F7992F15"
+			],
+			"isa": "PBXGroup",
+			"name": "src",
+			"path": "../../../addons/ofxGui/src",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"388CD1C3-A714-4E01-A914-13974E3AB236": {
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "compiled.mach-o.dylib",
+			"name": "libtensorflow_framework.2.dylib",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.dylib",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"3903371B-DCE1-47D0-97A1-2CC6C2219E08": {
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "compiled.mach-o.dylib",
+			"name": "libtensorflow.dylib",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.dylib",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"3A39DC2A-D58C-42E5-BF10-58659C66DFDC": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxTensorFlow2Utils.cpp",
+			"path": "../../../addons/ofxTensorFlow2/src/ofxTensorFlow2Utils.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"40D668D4-24D4-4F77-9D74-C77B7C8D28B7": {
+			"fileRef": "48386AD2-FBB5-4A57-A721-92084207898E",
+			"isa": "PBXBuildFile"
+		},
+		"40FA37BD-3F13-47B3-931E-8CDD52F60D43": {
+			"fileRef": "142CF805-3CE3-402C-9B9A-73CB38260CBE",
+			"isa": "PBXBuildFile"
+		},
+		"47122856-5C2C-45AE-946F-0D2F33904686": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tf_status.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_status.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"48386AD2-FBB5-4A57-A721-92084207898E": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxTF2ThreadedModel.cpp",
+			"path": "../../../addons/ofxTensorFlow2/src/ofxTF2ThreadedModel.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"490E2EB0-1FDC-4271-BC22-367C911467EE": {
+			"children": [
+				"88CAA4FB-40F4-432F-994B-5770006FF010"
+			],
+			"isa": "PBXGroup",
+			"name": "include",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"493026A1-F167-4948-A4BD-FC64FD08D668": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxInputField.cpp",
+			"path": "../../../addons/ofxGui/src/ofxInputField.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"4B5AF85F-D46B-4FE7-9D82-3C408A6345B7": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tensor_interface.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tensor_interface.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"50AC228A-3636-4859-9304-D08438400856": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxXmlSettings.h",
+			"path": "../../../addons/ofxXmlSettings/src/ofxXmlSettings.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"52280760-82E3-47CF-817B-7C2372A60B88": {
+			"fileRef": "3903371B-DCE1-47D0-97A1-2CC6C2219E08",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"58C72F9A-CFAE-4ADC-8BF0-118EADAD261C": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxBaseGui.cpp",
+			"path": "../../../addons/ofxGui/src/ofxBaseGui.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"5DC4D142-D895-4B83-8C82-2489D0F8D7C6": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxGuiGroup.cpp",
+			"path": "../../../addons/ofxGui/src/ofxGuiGroup.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"5DEBDD5A-D581-4BC6-ACC3-27666C16DAA2": {
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "compiled.mach-o.dylib",
+			"name": "libtensorflow_framework.2.8.0.dylib",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.8.0.dylib",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"5EF42D32-5AA8-4237-B7A1-282BE8BA725F": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxGui.h",
+			"path": "../../../addons/ofxGui/src/ofxGui.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"600BF197-6F56-40F3-B04D-F0D6A9EBFA9B": {
+			"fileRef": "785BE630-5586-48B1-83AD-07143D63D41D",
+			"isa": "PBXBuildFile"
+		},
+		"603D24CF-7411-4D06-9FB3-371DB3446CF3": {
+			"children": [
+				"131AA979-0960-45D8-A29A-74E9A5CB22D4"
+			],
+			"isa": "PBXGroup",
+			"name": "lib",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"60F28F20-1D72-4388-A314-1D29D34F3579": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tf_tensor.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_tensor.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"628E5967-3160-46B7-A54C-CAF1BE6D7998": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tinyxml.h",
+			"path": "../../../addons/ofxXmlSettings/libs/tinyxml.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"65C855A9-979F-4269-A2AD-374FA743D0F7": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tf_tstring.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_tstring.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"6A3157BD-DE73-49EE-90F2-87D15E7DFB23": {
+			"fileRef": "E61132F3-2712-48E7-9F5B-F4F823DF9905",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"6ADC0494-B9DD-4E1A-BF4F-BC1B1B8CE3A6": {
+			"children": [
+				"386CEA51-3E39-4822-B4C4-544569D65725"
+			],
+			"isa": "PBXGroup",
+			"name": "ofxGui",
+			"path": "../../../addons/ofxGui",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"6F00DEA4-9281-46BA-ADB6-3D468245E8D6": {
+			"children": [
+				"490E2EB0-1FDC-4271-BC22-367C911467EE"
+			],
+			"isa": "PBXGroup",
+			"name": "cppflow",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"74883B41-32DE-4CEC-94BD-0EDDE908D4BD": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxGuiGroup.h",
+			"path": "../../../addons/ofxGui/src/ofxGuiGroup.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"753F36CC-323B-44D6-827F-725413BF7483": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxColorPicker.h",
+			"path": "../../../addons/ofxGui/src/ofxColorPicker.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"77A28F4A-B650-4273-B3DE-414DD8CE5795": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "c_api_macros.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/c_api_macros.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"785BE630-5586-48B1-83AD-07143D63D41D": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxLabel.cpp",
+			"path": "../../../addons/ofxGui/src/ofxLabel.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"78F3FBF2-134C-44DE-83DA-7AAF5CFEF957": {
+			"fileRef": "EE7C09EB-35C0-4CD0-98A9-4E4016ED8859",
+			"isa": "PBXBuildFile"
+		},
+		"7BC7C84F-4072-4193-9EE3-0E9B935C6DEA": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "dlpack.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager/dlpack.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"7C626357-9130-4B12-8E2D-859FF8D84B78": {
+			"children": [
+				"D0720EE3-93DC-4780-A03D-FC7EE2422D7B",
+				"AA889445-C663-45AB-A81D-0762FD57F6B7"
+			],
+			"isa": "PBXGroup",
+			"name": "ofxXmlSettings",
+			"path": "../../../addons/ofxXmlSettings",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"7EF972A3-2FB6-48CB-B1FD-5D4275D82FB0": {
+			"children": [
+				"27864BAE-40B7-4DF7-9E1B-EDC5184F4F85"
+			],
+			"isa": "PBXGroup",
+			"name": "core",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"80675219-0388-4909-A221-B03BBF677C75": {
+			"fileRef": "2798071B-CD02-456F-99FE-A2395C1FF102",
+			"isa": "PBXBuildFile"
+		},
+		"807C5151-96E3-460A-80CE-D2C5DFF3D0F4": {
+			"fileRef": "0ED2851B-0F3A-4238-B5DB-10760DBE4F9A",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"80C326BB-E05A-482B-9CA5-D48CA5014E4F": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxXmlSettings.cpp",
+			"path": "../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"81A51AFC-9BF4-476B-891A-B7FF96F3CC8E": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxTensorFlow2Utils.h",
+			"path": "../../../addons/ofxTensorFlow2/src/ofxTensorFlow2Utils.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"83D906FE-3EC1-4069-8F23-59FE9FD53A11": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxColorPicker.h",
+			"path": "src/ofxColorPicker.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"868F3150-9C10-4190-94A3-CA0AAD9A7634": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "model.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/model.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"883ACFDE-E8D8-4121-96F0-3A4D9A7F8863": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "datatype.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/datatype.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"88CAA4FB-40F4-432F-994B-5770006FF010": {
+			"children": [
+				"E7F1AF68-2DA4-455F-B9EE-511AF5D73BB8",
+				"203392D5-E3E9-49B5-9BBB-B2500A8A59F2",
+				"883ACFDE-E8D8-4121-96F0-3A4D9A7F8863",
+				"0683F589-8495-474B-A835-5A3B3844AFE4",
+				"868F3150-9C10-4190-94A3-CA0AAD9A7634",
+				"95F40806-940B-4B4A-A049-756382490DEF",
+				"F45502F2-7CC3-4002-8DC4-3499CC6D7B06",
+				"A040B128-E176-4105-95E5-C157AC5A205C"
+			],
+			"isa": "PBXGroup",
+			"name": "cppflow",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"8E6DE40C-FF11-4DD4-B4FA-64A5F7992F15": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxToggle.h",
+			"path": "../../../addons/ofxGui/src/ofxToggle.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"937BF76C-7838-4919-8BDF-F812E4A0996F": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxTF2ThreadedModel.h",
+			"path": "../../../addons/ofxTensorFlow2/src/ofxTF2ThreadedModel.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"944D4320-65EA-4895-BA26-C20CE2532D1B": {
+			"children": [
+				"C46E067C-82A5-4E8A-B628-DD17184E9E4E",
+				"EA74CEDF-4798-43B2-AF55-BA08588E6632"
+			],
+			"isa": "PBXGroup",
+			"name": "ofxTensorFlow2",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"95F40806-940B-4B4A-A049-756382490DEF": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ops.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/ops.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"9D392A0E-1E51-49A0-8D01-CE41AFEE2CA3": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tf_attrtype.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_attrtype.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"9FF7F37A-7CE1-4B45-969D-14D9E0505C06": {
+			"children": [
+				"603D24CF-7411-4D06-9FB3-371DB3446CF3",
+				"B31CA77C-9989-4370-B0E4-D15F33D8726C"
+			],
+			"isa": "PBXGroup",
+			"name": "tensorflow",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"A040B128-E176-4105-95E5-C157AC5A205C": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tensor.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/tensor.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"A6F2EC5C-34DB-488F-9EB8-8A3BABAFDC50": {
+			"fileRef": "80C326BB-E05A-482B-9CA5-D48CA5014E4F",
+			"isa": "PBXBuildFile"
+		},
+		"A808E3B9-23C2-4C5E-B455-7FD53C461D71": {
+			"fileRef": "CDE7FF44-B0E1-4215-AAC0-2A9A5A15843B",
+			"isa": "PBXBuildFile"
+		},
+		"A8B8AEB4-9EBD-4448-815F-C90D34B26710": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "c_api_experimental.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager/c_api_experimental.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"AA889445-C663-45AB-A81D-0762FD57F6B7": {
+			"children": [
+				"80C326BB-E05A-482B-9CA5-D48CA5014E4F",
+				"50AC228A-3636-4859-9304-D08438400856"
+			],
+			"isa": "PBXGroup",
+			"name": "src",
+			"path": "../../../addons/ofxXmlSettings/src",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"ACA9C70D-7858-4CCB-8DE5-B0B2D2CC5F43": {
+			"fileRef": "E61132F3-2712-48E7-9F5B-F4F823DF9905",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"AE6BB206-D4F3-497B-8768-86C3FD29A530": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxBaseGui.h",
+			"path": "../../../addons/ofxGui/src/ofxBaseGui.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"B31CA77C-9989-4370-B0E4-D15F33D8726C": {
+			"children": [
+				"D95770C0-CC57-4025-99F1-9F77684064D4"
+			],
+			"isa": "PBXGroup",
+			"name": "include",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"B4A77566-3169-4C1A-808C-22B1B0A024D2": {
+			"fileRef": "58C72F9A-CFAE-4ADC-8BF0-118EADAD261C",
+			"isa": "PBXBuildFile"
+		},
+		"B599EA51-E5E9-46D1-86E5-65931883AE40": {
+			"fileRef": "E1A7EF42-154B-4786-ABFE-3438CD35F2D9",
+			"isa": "PBXBuildFile"
+		},
+		"BB4B014C10F69532006C3DED": {
+			"children": [
+				"6ADC0494-B9DD-4E1A-BF4F-BC1B1B8CE3A6",
+				"944D4320-65EA-4895-BA26-C20CE2532D1B",
+				"7C626357-9130-4B12-8E2D-859FF8D84B78"
+			],
+			"isa": "PBXGroup",
+			"name": "addons",
+			"path": "../../../addons",
+			"sourceTree": "<group>"
+		},
+		"BE87C7F2-9405-4076-9E41-0BF612ACE440": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxColorPicker.cpp",
+			"path": "../../../addons/ofxGui/src/ofxColorPicker.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"C1080401-9698-4475-8BF0-57903382220A": {
+			"fileRef": "388CD1C3-A714-4E01-A914-13974E3AB236",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"C14A2BEB-DA1B-419D-8D41-CACD3244D6F7": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxPanel.h",
+			"path": "../../../addons/ofxGui/src/ofxPanel.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"C2BAB1A7-08A6-4450-8225-25DA905BDDC9": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tf_file_statistics.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_file_statistics.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"C46E067C-82A5-4E8A-B628-DD17184E9E4E": {
+			"children": [
+				"9FF7F37A-7CE1-4B45-969D-14D9E0505C06",
+				"6F00DEA4-9281-46BA-ADB6-3D468245E8D6"
+			],
+			"isa": "PBXGroup",
+			"name": "libs",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"C7FAF1EE-529B-4AE4-B153-D0A64E4C8BBF": {
+			"fileRef": "0C0B57C5-BEA7-4D86-B333-717F08C6FD22",
+			"isa": "PBXBuildFile"
+		},
+		"CA9D1EC7-CE4E-4E06-8AD8-C7046D2CDD07": {
+			"fileRef": "388CD1C3-A714-4E01-A914-13974E3AB236",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"CAAC3EB7-F8E7-48D6-94D2-662A3036B233": {
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "compiled.mach-o.dylib",
+			"name": "libtensorflow.2.dylib",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.dylib",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"CB4CA238-9425-4EA1-8B61-D96D34EBC748": {
+			"fileRef": "493026A1-F167-4948-A4BD-FC64FD08D668",
+			"isa": "PBXBuildFile"
+		},
+		"CB693FAB-59B3-49D5-A1C7-36051F352F03": {
+			"fileRef": "2F81B143-5A64-409A-B3B2-F51EEB97C6BA",
+			"isa": "PBXBuildFile"
+		},
+		"CD28A9D3-40F1-4C08-9800-0297EE9F5382": {
+			"fileRef": "CAAC3EB7-F8E7-48D6-94D2-662A3036B233",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"CDE7FF44-B0E1-4215-AAC0-2A9A5A15843B": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxPanel.cpp",
+			"path": "../../../addons/ofxGui/src/ofxPanel.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"D04B00FF-241E-446F-9F10-A95653C5F4BB": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ctstring.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform/ctstring.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"D0720EE3-93DC-4780-A03D-FC7EE2422D7B": {
+			"children": [
+				"142CF805-3CE3-402C-9B9A-73CB38260CBE",
+				"628E5967-3160-46B7-A54C-CAF1BE6D7998",
+				"2798071B-CD02-456F-99FE-A2395C1FF102",
+				"0C0B57C5-BEA7-4D86-B333-717F08C6FD22"
+			],
+			"isa": "PBXGroup",
+			"name": "libs",
+			"path": "../../../addons/ofxXmlSettings/libs",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"D1F15005-551F-4343-A32F-5110799FC09B": {
+			"fileRef": "BE87C7F2-9405-4076-9E41-0BF612ACE440",
+			"isa": "PBXBuildFile"
+		},
+		"D4EFA0E7-10E6-4009-9B03-93FEF34D74B3": {
+			"fileRef": "CAAC3EB7-F8E7-48D6-94D2-662A3036B233",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"D95770C0-CC57-4025-99F1-9F77684064D4": {
+			"children": [
+				"FF7A8BC6-5A49-4015-B92B-DECB78FBDAA7",
+				"7EF972A3-2FB6-48CB-B1FD-5D4275D82FB0"
+			],
+			"isa": "PBXGroup",
+			"name": "tensorflow",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"DE583442-9559-444A-8382-440678B985C8": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ctstring_internal.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform/ctstring_internal.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E1A7EF42-154B-4786-ABFE-3438CD35F2D9": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSlider.cpp",
+			"path": "../../../addons/ofxGui/src/ofxSlider.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E1CB1060-99DD-4732-AA14-D43F6D0677C8": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxButton.h",
+			"path": "../../../addons/ofxGui/src/ofxButton.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E2AA4CC1-524C-4EDD-9A98-EB29EBA0406C": {
+			"fileRef": "0ED2851B-0F3A-4238-B5DB-10760DBE4F9A",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"E2BE578A-B9C6-46CA-9E48-3710B05A45A2": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxGuiUtils.h",
+			"path": "../../../addons/ofxGui/src/ofxGuiUtils.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E42962A92163ECCD00A6A9E2": {
+			"alwaysOutOfDate": "1",
+			"buildActionMask": "2147483647",
+			"files": [],
+			"inputPaths": [],
+			"isa": "PBXShellScriptBuildPhase",
+			"name": "Run Script — Compile OF",
+			"outputPaths": [],
+			"runOnlyForDeploymentPostprocessing": "0",
+			"shellPath": "/bin/sh",
+			"shellScript": "echo \"💾 Compiling Openframeworks\"\nxcodebuild -project \"$OF_PATH/libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj\" -target openFrameworks -configuration \"${CONFIGURATION}\"  CLANG_CXX_LANGUAGE_STANDARD=$CLANG_CXX_LANGUAGE_STANDARD MACOSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET GCC_PREPROCESSOR_DEFINITIONS=$USER_PREPROCESSOR_DEFINITIONS\n",
+			"showEnvVarsInLog": "0"
+		},
+		"E4A5B60F29BAAAE400C2D356": {
+			"buildActionMask": "2147483647",
+			"dstPath": "",
+			"dstSubfolderSpec": "6",
+			"files": [
+				"F2A7A469-C390-4D47-BAEC-794D33B6B35D",
+				"249AE670-9960-43BF-8381-F6D7602AF3CB",
+				"CA9D1EC7-CE4E-4E06-8AD8-C7046D2CDD07",
+				"D4EFA0E7-10E6-4009-9B03-93FEF34D74B3",
+				"E2AA4CC1-524C-4EDD-9A98-EB29EBA0406C",
+				"ACA9C70D-7858-4CCB-8DE5-B0B2D2CC5F43"
+			],
+			"isa": "PBXCopyFilesBuildPhase",
+			"runOnlyForDeploymentPostprocessing": "0"
+		},
+		"E4B69B4A0A3A1720003C02F2": {
+			"children": [
+				"191CD6FA2847E21E0085CBB6",
+				"E4B6FCAD0C3E899E008CF71C",
+				"E4EB6923138AFD0F00A09F29",
+				"E4B69E1C0A3A1BDC003C02F2",
+				"191EF70929D778A400F35F26",
+				"BB4B014C10F69532006C3DED",
+				"E4B69B5B0A3A1756003C02F2"
+			],
+			"isa": "PBXGroup",
+			"sourceTree": "<group>"
+		},
+		"E4B69B4C0A3A1720003C02F2": {
+			"attributes": {
+				"LastUpgradeCheck": "0600"
+			},
+			"buildConfigurationList": "E4B69B4D0A3A1720003C02F2",
+			"compatibilityVersion": "Xcode 3.2",
+			"developmentRegion": "en",
+			"hasScannedForEncodings": "0",
+			"isa": "PBXProject",
+			"knownRegions": [
+				"en",
+				"Base"
+			],
+			"mainGroup": "E4B69B4A0A3A1720003C02F2",
+			"productRefGroup": "E4B69B4A0A3A1720003C02F2",
+			"projectDirPath": "",
+			"projectRoot": "",
+			"targets": [
+				"E4B69B5A0A3A1756003C02F2"
+			]
+		},
+		"E4B69B4D0A3A1720003C02F2": {
+			"buildConfigurations": [
+				"E4B69B4E0A3A1720003C02F2",
+				"E4B69B4F0A3A1720003C02F2"
+			],
+			"defaultConfigurationIsVisible": "0",
+			"defaultConfigurationName": "Release",
+			"isa": "XCConfigurationList"
+		},
+		"E4B69B4E0A3A1720003C02F2": {
+			"baseConfigurationReference": "E4EB6923138AFD0F00A09F29",
+			"buildSettings": {
+				"CODE_SIGN_ENTITLEMENTS": "of.entitlements",
+				"COPY_PHASE_STRIP": "NO",
+				"ENABLE_TESTABILITY": "YES",
+				"GCC_OPTIMIZATION_LEVEL": "0",
+				"GCC_WARN_UNUSED_VARIABLE": "NO",
+				"HEADER_SEARCH_PATHS": [
 					"$(OF_CORE_HEADERS)",
-					src,
-				);
-				OTHER_CPLUSPLUSFLAGS = "-D__MACOSX_CORE__";
-			};
-			name = Debug;
-		};
-		E4B69B4F0A3A1720003C02F2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = of.entitlements;
-				COPY_PHASE_STRIP = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_UNROLL_LOOPS = YES;
-				HEADER_SEARCH_PATHS = (
+					"src"
+				],
+				"OTHER_CPLUSPLUSFLAGS": "-D__MACOSX_CORE__"
+			},
+			"isa": "XCBuildConfiguration",
+			"name": "Debug"
+		},
+		"E4B69B4F0A3A1720003C02F2": {
+			"baseConfigurationReference": "E4EB6923138AFD0F00A09F29",
+			"buildSettings": {
+				"CODE_SIGN_ENTITLEMENTS": "of.entitlements",
+				"COPY_PHASE_STRIP": "YES",
+				"GCC_OPTIMIZATION_LEVEL": "3",
+				"GCC_UNROLL_LOOPS": "YES",
+				"HEADER_SEARCH_PATHS": [
 					"$(OF_CORE_HEADERS)",
-					src,
-				);
-				OTHER_CPLUSPLUSFLAGS = "-D__MACOSX_CORE__";
-			};
-			name = Release;
-		};
-		E4B69B600A3A1757003C02F2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 84432S58T4;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				GCC_DYNAMIC_NO_PIC = NO;
-				HEADER_SEARCH_PATHS = (
+					"src"
+				],
+				"OTHER_CPLUSPLUSFLAGS": "-D__MACOSX_CORE__"
+			},
+			"isa": "XCBuildConfiguration",
+			"name": "Release"
+		},
+		"E4B69B580A3A1756003C02F2": {
+			"buildActionMask": "2147483647",
+			"files": [
+				"E4B69E200A3A1BDC003C02F2",
+				"E4B69E210A3A1BDC003C02F2",
+				"B4A77566-3169-4C1A-808C-22B1B0A024D2",
+				"CB693FAB-59B3-49D5-A1C7-36051F352F03",
+				"D1F15005-551F-4343-A32F-5110799FC09B",
+				"2268702C-8FCD-4B19-A1E6-00513DF41F8A",
+				"CB4CA238-9425-4EA1-8B61-D96D34EBC748",
+				"600BF197-6F56-40F3-B04D-F0D6A9EBFA9B",
+				"A808E3B9-23C2-4C5E-B455-7FD53C461D71",
+				"B599EA51-E5E9-46D1-86E5-65931883AE40",
+				"78F3FBF2-134C-44DE-83DA-7AAF5CFEF957",
+				"EF2DB859-57D9-4B15-A6C3-F0637AFAD618",
+				"2A101720-5A31-4C25-BA61-53DB10603D68",
+				"40D668D4-24D4-4F77-9D74-C77B7C8D28B7",
+				"FB4D9570-4721-4AFA-8290-210752284F93",
+				"40FA37BD-3F13-47B3-931E-8CDD52F60D43",
+				"80675219-0388-4909-A221-B03BBF677C75",
+				"C7FAF1EE-529B-4AE4-B153-D0A64E4C8BBF",
+				"A6F2EC5C-34DB-488F-9EB8-8A3BABAFDC50"
+			],
+			"isa": "PBXSourcesBuildPhase",
+			"runOnlyForDeploymentPostprocessing": "0"
+		},
+		"E4B69B590A3A1756003C02F2": {
+			"buildActionMask": "2147483647",
+			"files": [],
+			"isa": "PBXFrameworksBuildPhase",
+			"runOnlyForDeploymentPostprocessing": "0"
+		},
+		"E4B69B5A0A3A1756003C02F2": {
+			"buildConfigurationList": "E4B69B5F0A3A1757003C02F2",
+			"buildPhases": [
+				"E42962A92163ECCD00A6A9E2",
+				"E4B69B580A3A1756003C02F2",
+				"E4B69B590A3A1756003C02F2",
+				"E4C2427710CC5ABF004149E2",
+				"E4A5B60F29BAAAE400C2D356",
+				"19B789C429E5AB4A0082E9B8"
+			],
+			"buildRules": [],
+			"dependencies": [],
+			"isa": "PBXNativeTarget",
+			"name": "Blow_Up_3_0_2",
+			"productName": "myOFApp",
+			"productReference": "E4B69B5B0A3A1756003C02F2",
+			"productType": "com.apple.product-type.application"
+		},
+		"E4B69B5B0A3A1756003C02F2": {
+			"explicitFileType": "wrapper.application",
+			"includeInIndex": "0",
+			"isa": "PBXFileReference",
+			"path": "Blow_Up_3_0_2Debug.app",
+			"sourceTree": "BUILT_PRODUCTS_DIR"
+		},
+		"E4B69B5F0A3A1757003C02F2": {
+			"buildConfigurations": [
+				"E4B69B600A3A1757003C02F2",
+				"E4B69B610A3A1757003C02F2"
+			],
+			"defaultConfigurationIsVisible": "0",
+			"defaultConfigurationName": "Release",
+			"isa": "XCConfigurationList"
+		},
+		"E4B69B600A3A1757003C02F2": {
+			"baseConfigurationReference": "E4EB6923138AFD0F00A09F29",
+			"buildSettings": {
+				"ARCHS": "$(ARCHS_STANDARD)",
+				"COPY_PHASE_STRIP": "NO",
+				"FRAMEWORK_SEARCH_PATHS": "$(inherited)",
+				"GCC_DYNAMIC_NO_PIC": "NO",
+				"HEADER_SEARCH_PATHS": [
 					"$(OF_CORE_HEADERS)",
-					src,
-					../../../addons/ofxGui/src,
-					../../../addons/ofxTensorFlow2/libs,
-					../../../addons/ofxTensorFlow2/libs/cppflow,
-					../../../addons/ofxTensorFlow2/libs/cppflow/docs,
-					../../../addons/ofxTensorFlow2/libs/cppflow/docs/source,
-					../../../addons/ofxTensorFlow2/libs/cppflow/examples,
-					../../../addons/ofxTensorFlow2/libs/cppflow/include,
-					../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow,
-					../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/ops_generator,
-					../../../addons/ofxTensorFlow2/libs/tensorflow,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx,
-					../../../addons/ofxTensorFlow2/src,
-					../../../addons/ofxTensorFlow2/libs/cppflow/include,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include,
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = (
+					"src",
+					"src",
+					"../../../addons/ofxGui/src",
+					"../../../addons/ofxTensorFlow2/libs",
+					"../../../addons/ofxTensorFlow2/libs/cppflow",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/docs",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/docs/source",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/examples",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/include",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/ops_generator",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx",
+					"../../../addons/ofxTensorFlow2/src",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/include",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include",
+					"../../../addons/ofxXmlSettings/libs",
+					"../../../addons/ofxXmlSettings/src"
+				],
+				"LIBRARY_SEARCH_PATHS": "$(inherited)",
+				"OTHER_LDFLAGS": [
 					"$(OF_CORE_LIBS)",
 					"$(OF_CORE_FRAMEWORKS)",
 					"$(LIB_OF_DEBUG)",
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.8.0.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.8.0.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.dylib,
-				);
-				PROVISIONING_PROFILE_SPECIFIER = "";
-			};
-			name = Debug;
-		};
-		E4B69B610A3A1757003C02F2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = 84432S58T4;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				HEADER_SEARCH_PATHS = (
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.8.0.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.8.0.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.dylib"
+				]
+			},
+			"isa": "XCBuildConfiguration",
+			"name": "Debug"
+		},
+		"E4B69B610A3A1757003C02F2": {
+			"baseConfigurationReference": "E4EB6923138AFD0F00A09F29",
+			"buildSettings": {
+				"ARCHS": "$(ARCHS_STANDARD)",
+				"COPY_PHASE_STRIP": "YES",
+				"FRAMEWORK_SEARCH_PATHS": "$(inherited)",
+				"HEADER_SEARCH_PATHS": [
 					"$(OF_CORE_HEADERS)",
-					src,
-					../../../addons/ofxGui/src,
-					../../../addons/ofxTensorFlow2/libs,
-					../../../addons/ofxTensorFlow2/libs/cppflow,
-					../../../addons/ofxTensorFlow2/libs/cppflow/docs,
-					../../../addons/ofxTensorFlow2/libs/cppflow/docs/source,
-					../../../addons/ofxTensorFlow2/libs/cppflow/examples,
-					../../../addons/ofxTensorFlow2/libs/cppflow/include,
-					../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow,
-					../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/ops_generator,
-					../../../addons/ofxTensorFlow2/libs/tensorflow,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx,
-					../../../addons/ofxTensorFlow2/src,
-					../../../addons/ofxTensorFlow2/libs/cppflow/include,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/include,
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = (
+					"src",
+					"src",
+					"../../../addons/ofxGui/src",
+					"../../../addons/ofxTensorFlow2/libs",
+					"../../../addons/ofxTensorFlow2/libs/cppflow",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/docs",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/docs/source",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/examples",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/include",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/ops_generator",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/eager",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/core/platform",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx",
+					"../../../addons/ofxTensorFlow2/src",
+					"../../../addons/ofxTensorFlow2/libs/cppflow/include",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/include",
+					"../../../addons/ofxXmlSettings/libs",
+					"../../../addons/ofxXmlSettings/src"
+				],
+				"LIBRARY_SEARCH_PATHS": "$(inherited)",
+				"OTHER_LDFLAGS": [
 					"$(OF_CORE_LIBS)",
 					"$(OF_CORE_FRAMEWORKS)",
 					"$(LIB_OF)",
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.8.0.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.8.0.dylib,
-					../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.dylib,
-				);
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				baseConfigurationReference = E4EB6923138AFD0F00A09F29;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Blow_Up_3_0_2" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E4B69B4E0A3A1720003C02F2 /* Debug */,
-				E4B69B4F0A3A1720003C02F2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "Blow_Up_3_0_2" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E4B69B600A3A1757003C02F2 /* Debug */,
-				E4B69B610A3A1757003C02F2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = E4B69B4C0A3A1720003C02F2 /* Project object */;
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.8.0.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.2.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow.2.8.0.dylib",
+					"../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.dylib"
+				],
+				"baseConfigurationReference": "E4EB6923138AFD0F00A09F29"
+			},
+			"isa": "XCBuildConfiguration",
+			"name": "Release"
+		},
+		"E4B69E1C0A3A1BDC003C02F2": {
+			"children": [
+				"E4B69E1D0A3A1BDC003C02F2",
+				"E4B69E1E0A3A1BDC003C02F2",
+				"E4B69E1F0A3A1BDC003C02F2",
+				"83D906FE-3EC1-4069-8F23-59FE9FD53A11",
+				"131A845D-2010-46D0-9CFA-E5B6E94CE8C9"
+			],
+			"isa": "PBXGroup",
+			"path": "src",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E4B69E1D0A3A1BDC003C02F2": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "sourcecode.cpp.cpp",
+			"name": "main.cpp",
+			"path": "src/main.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E4B69E1E0A3A1BDC003C02F2": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofApp.cpp",
+			"path": "src/ofApp.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E4B69E1F0A3A1BDC003C02F2": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "sourcecode.c.h",
+			"name": "ofApp.h",
+			"path": "src/ofApp.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E4B69E200A3A1BDC003C02F2": {
+			"fileRef": "E4B69E1D0A3A1BDC003C02F2",
+			"isa": "PBXBuildFile"
+		},
+		"E4B69E210A3A1BDC003C02F2": {
+			"fileRef": "E4B69E1E0A3A1BDC003C02F2",
+			"isa": "PBXBuildFile"
+		},
+		"E4B6FCAD0C3E899E008CF71C": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "text.plist.xml",
+			"path": "openFrameworks-Info.plist",
+			"sourceTree": "<group>"
+		},
+		"E4C2427710CC5ABF004149E2": {
+			"buildActionMask": "2147483647",
+			"dstPath": "",
+			"dstSubfolderSpec": "10",
+			"files": [],
+			"isa": "PBXCopyFilesBuildPhase",
+			"runOnlyForDeploymentPostprocessing": "0"
+		},
+		"E4EB6923138AFD0F00A09F29": {
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "text.xcconfig",
+			"path": "Project.xcconfig",
+			"sourceTree": "<group>"
+		},
+		"E61132F3-2712-48E7-9F5B-F4F823DF9905": {
+			"isa": "PBXFileReference",
+			"lastKnownFileType": "compiled.mach-o.dylib",
+			"name": "libtensorflow_framework.dylib",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/lib/osx/libtensorflow_framework.dylib",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"E7F1AF68-2DA4-455F-B9EE-511AF5D73BB8": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "context.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/context.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"EA74CEDF-4798-43B2-AF55-BA08588E6632": {
+			"children": [
+				"067764FD-3653-48ED-B405-D3765D602205",
+				"3080B0A1-0F2B-42F6-BEF1-18966C9C250F",
+				"48386AD2-FBB5-4A57-A721-92084207898E",
+				"937BF76C-7838-4919-8BDF-F812E4A0996F",
+				"EB248F16-64D6-4FBD-A93E-C6B06F09B0D7",
+				"3A39DC2A-D58C-42E5-BF10-58659C66DFDC",
+				"81A51AFC-9BF4-476B-891A-B7FF96F3CC8E"
+			],
+			"isa": "PBXGroup",
+			"name": "src",
+			"path": "../../../addons/ofxTensorFlow2/src",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"EB248F16-64D6-4FBD-A93E-C6B06F09B0D7": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxTensorFlow2.h",
+			"path": "../../../addons/ofxTensorFlow2/src/ofxTensorFlow2.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"EBA088E1-6E9F-4764-BCA5-C3790CA0D870": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "c_api_experimental.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/c_api_experimental.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"EE7C09EB-35C0-4CD0-98A9-4E4016ED8859": {
+			"explicitFileType": "sourcecode.cpp.cpp",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxSliderGroup.cpp",
+			"path": "../../../addons/ofxGui/src/ofxSliderGroup.cpp",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"EF2DB859-57D9-4B15-A6C3-F0637AFAD618": {
+			"fileRef": "04608475-87A2-4F41-A5FE-E26BD0C59F35",
+			"isa": "PBXBuildFile"
+		},
+		"F238B0F6-42B3-4B97-85D3-45040FB4938C": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "c_api.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/c_api.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"F2A7A469-C390-4D47-BAEC-794D33B6B35D": {
+			"fileRef": "3903371B-DCE1-47D0-97A1-2CC6C2219E08",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"F45502F2-7CC3-4002-8DC4-3499CC6D7B06": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "raw_ops.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/cppflow/include/cppflow/raw_ops.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"F6D76DC9-C88C-451D-971F-E98048DB965B": {
+			"fileRef": "5DEBDD5A-D581-4BC6-ACC3-27666C16DAA2",
+			"isa": "PBXBuildFile",
+			"settings": {
+				"ATTRIBUTES": [
+					"CodeSignOnCopy"
+				]
+			}
+		},
+		"F9065A24-3273-4726-8ABD-B8F40951B2D2": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "tf_datatype.h",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c/tf_datatype.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"FB4D9570-4721-4AFA-8290-210752284F93": {
+			"fileRef": "3A39DC2A-D58C-42E5-BF10-58659C66DFDC",
+			"isa": "PBXBuildFile"
+		},
+		"FCF04B42-BEC1-4FC6-8E7F-920A176BD167": {
+			"explicitFileType": "sourcecode.c.h",
+			"fileEncoding": "4",
+			"isa": "PBXFileReference",
+			"name": "ofxLabel.h",
+			"path": "../../../addons/ofxGui/src/ofxLabel.h",
+			"sourceTree": "SOURCE_ROOT"
+		},
+		"FF7A8BC6-5A49-4015-B92B-DECB78FBDAA7": {
+			"children": [
+				"F238B0F6-42B3-4B97-85D3-45040FB4938C",
+				"EBA088E1-6E9F-4764-BCA5-C3790CA0D870",
+				"77A28F4A-B650-4273-B3DE-414DD8CE5795",
+				"321B968D-00F3-49B5-B19C-962709964E5D",
+				"4B5AF85F-D46B-4FE7-9D82-3C408A6345B7",
+				"9D392A0E-1E51-49A0-8D01-CE41AFEE2CA3",
+				"F9065A24-3273-4726-8ABD-B8F40951B2D2",
+				"C2BAB1A7-08A6-4450-8225-25DA905BDDC9",
+				"47122856-5C2C-45AE-946F-0D2F33904686",
+				"60F28F20-1D72-4388-A314-1D29D34F3579",
+				"65C855A9-979F-4269-A2AD-374FA743D0F7"
+			],
+			"isa": "PBXGroup",
+			"name": "c",
+			"path": "../../../addons/ofxTensorFlow2/libs/tensorflow/include/tensorflow/c",
+			"sourceTree": "SOURCE_ROOT"
+		}
+	},
+	"openFrameworksProjectGeneratorVersion": "21",
+	"rootObject": "E4B69B4C0A3A1720003C02F2"
 }
