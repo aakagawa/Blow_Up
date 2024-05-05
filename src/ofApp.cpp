@@ -8,63 +8,6 @@ void ofApp::setup() {
     grabber.setDesiredFrameRate(30); // Set webcam framerate to 30fps
     grabber.update();
 
-    showGui = true;
-    gui.setup();
-    gui.setSize(720, 760);
-    gui.setDefaultWidth(720);
-    gui.setDefaultHeight(20);
-
-    // Display settings
-    gui.add(displaySettings.setup("DISPLAY SETTINGS", ""));
-    gui.add(flipImage.setup("Flip image", true)); 
-    
-    // Grid settings
-    gui.add(gridSettings.setup("GRID SETTINGS", ""));
-    gui.add(outlineR.setup("Cell outline R", 0, 0, 255));
-    gui.add(outlineG.setup("Cell outline G", 0, 0, 255));
-    gui.add(outlineB.setup("Cell outline B", 0, 0, 255));
-    gui.add(cellOutlineWidth.setup("Cell outline width", 0, 0, 10));
-    gui.add(minRow.setup("Minimum num of rows", 2, 2, 256)); 
-    gui.add(minCol.setup("Minimum num of columns", 2, 2, 256)); 
-    gui.add(maxRow.setup("Maximum num of rows", 128, 2, 256));  
-    gui.add(maxCol.setup("Maximum num of columns", 128, 2, 256)); 
-
-    // Animation settings
-    gui.add(animationSettings.setup("ANIMATION SETTINGS", ""));
-    gui.add(gridUpdateInterval.setup("Grid update interval (default: 5000)", 5000, 5000, 600000)); 
-    gui.add(gridUpdateIntervalUncertainty.setup("Grid update interval uncertainty (default: 20)", 20, 0, 100)); 
-    gui.add(maxGridProbability.setup("Probability of maximum grid ", 0.2, 0, 1.0)); 
-    gui.add(max1x2Cell.setup("Max num of 1x2 cells", 2, 0, 10));  
-    gui.add(max2x1Cell.setup("Max num of 2x1 cells", 2, 0, 10)); 
-    gui.add(max2x2Cell.setup("Max num of 2x2 cells", 2, 0, 10)); 
-    gui.add(bigCellScale.setup("Big cell scale", 1, 1, 10));
-    gui.add(zoomFactor.setup("Zoom/scale factor (blow up)", 4, 2, 20));
-    gui.add(offsetFactorX.setup("Horizontal offset factor (blow up)", 7.5, 0.0, 20.0));
-    gui.add(offsetFactorY.setup("Vertical offset factor (blow up)", 2.5, 0.0, 10.0));
-    gui.add(transDuration.setup("Transition duration", 1000, 500, 10000)); 
-    gui.add(focusFollowSpeed.setup("Focus follow speed", 0.05, 0.01, 0.5));
-
-    // Detection settings
-    gui.add(detectionSettings.setup("DETECTION SETTINGS", ""));
-    gui.add(detectionAreaTopLeftX.setup("Detection area top left x", 0, 0, grabber.getWidth())); 
-    gui.add(detectionAreaTopLeftY.setup("Detection area top left y", 0, 0, grabber.getHeight())); 
-    gui.add(detectionAreaBottomRightX.setup("Detection area bottom right x (default: maximum width)", grabber.getWidth(), 0, grabber.getWidth())); 
-    gui.add(detectionAreaBottomRightY.setup("Detection area bottom right y (default: maximum height)", grabber.getHeight(), 0, grabber.getHeight())); 
-    gui.add(minConfidence.setup("Required confidence", 0.5, 0.0, 0.9));
-    gui.add(minSize.setup("Required size", 0.2, 0.0, 0.9));
-    gui.add(transInTimeout.setup("Transition in timeout (time until transition after detection)", 0, 0, 5000));
-    gui.add(transOutTimeout.setup("Transition out timeout (time until transition after undetection)", 3000, 0, 10000)); 
-    gui.add(inactiveTimeout.setup("Time until inactive person is considered un detected", 10000, 2000, 60000)); 
-
-    // Advanced Settings 
-    gui.add(advancedSettings.setup("ADVANCED SETTINGS", ""));
-    gui.add(frameGrain.setup("detection frameGrain", 2, 1, 6)); 
-    gui.add(maxMovementThreshold.setup("maxMovementThreshold", 0.75, 0.5, 1.0));
-    gui.add(minMovementThreshold.setup("minMovementThreshold", 0.05, 0.01, 0.2));
-    
-    // Load Saved Settings
-    loadSettings();
-
     // Initialize diplay 
     inputWidth = grabber.getWidth(); 
     inputHeight = grabber.getHeight();
@@ -85,6 +28,67 @@ void ofApp::setup() {
     // Calculate new dimensions
     imageWidth = inputWidth * baseScale;
     imageHeight = inputHeight * baseScale;
+
+    showGui = true;
+    gui.setup();
+    gui.setPosition(0, 0);
+    gui.setSize(outputWidth * 0.375, 760);
+    gui.setDefaultWidth(720);
+    gui.setDefaultHeight(20);
+
+    // Display settings
+    gui.add(displaySettings.setup("DISPLAY SETTINGS", ""));
+    gui.add(flipImage.setup("Flip image", true)); 
+    
+    // Grid settings
+    gui.add(gridSettings.setup("GRID SETTINGS", ""));
+    gui.add(outlineR.setup("Cell outline R", 0, 0, 255));
+    gui.add(outlineG.setup("Cell outline G", 0, 0, 255));
+    gui.add(outlineB.setup("Cell outline B", 0, 0, 255));
+    gui.add(cellOutlineWidth.setup("Cell outline width", 0, 0, 10));
+    gui.add(minRow.setup("Minimum num of rows", 2, 2, 256)); 
+    gui.add(minCol.setup("Minimum num of columns", 2, 2, 256)); 
+    gui.add(maxRow.setup("Maximum num of rows", 64, 2, 256));  
+    gui.add(maxCol.setup("Maximum num of columns", 64, 2, 256)); 
+
+    // Animation settings
+    gui.add(animationSettings.setup("ANIMATION SETTINGS", ""));
+    gui.add(gridUpdateInterval.setup("Grid update interval (default: 5000)", 5000, 5000, 600000)); 
+    gui.add(gridUpdateIntervalUncertainty.setup("Grid update interval uncertainty (default: 20)", 20, 0, 100)); 
+    gui.add(maxGridProbability.setup("Probability of maximum grid ", 20, 0, 100)); 
+    gui.add(max1x2Cell.setup("Max num of 1x2 cells", 2, 0, 10));  
+    gui.add(max2x1Cell.setup("Max num of 2x1 cells", 2, 0, 10)); 
+    gui.add(max2x2Cell.setup("Max num of 2x2 cells", 2, 0, 10)); 
+    gui.add(bigCellScale.setup("Big cell scale", 2, 1, 10));
+    gui.add(zoomFactor.setup("Zoom/scale factor (blow up)", 4, 2, 20));
+    gui.add(offsetFactorX.setup("Horizontal offset factor (blow up)", 0.2, 0.0, 1.0));
+    gui.add(offsetFactorY.setup("Vertical offset factor (blow up)", 0.05, 0.0, 1.0));
+    gui.add(transDuration.setup("Transition duration", 1000, 500, 10000)); 
+    gui.add(focusFollowSpeed.setup("Focus follow speed", 0.05, 0.01, 0.5));
+
+    // Detection settings
+    gui.add(detectionSettings.setup("DETECTION SETTINGS", ""));
+    gui.add(detectionAreaTopLeftX.setup("Detection area top left x", 0, 0, inputWidth)); 
+    gui.add(detectionAreaTopLeftY.setup("Detection area top left y", 0, 0, inputHeight)); 
+    gui.add(detectionAreaBottomRightX.setup("Detection area bottom right x (default: maximum width)", inputWidth, 0, inputWidth)); 
+    gui.add(detectionAreaBottomRightY.setup("Detection area bottom right y (default: maximum height)", inputHeight, 0, inputHeight)); 
+
+    gui.add(minConfidence.setup("Required confidence", 0.5, 0.0, 0.9));
+    gui.add(minSize.setup("Required size", 0.2, 0.0, 0.9));
+    gui.add(transInTimeout.setup("Transition in timeout (time until transition after detection)", 0, 0, 10000));
+    gui.add(transOutTimeout.setup("Transition out timeout (time until transition after undetection)", 2500, 0, 10000)); 
+    gui.add(inactiveTimeout.setup("Time until inactive person is considered un detected", 10000, 2000, 60000)); 
+
+    // Advanced Settings 
+    gui.add(advancedSettings.setup("ADVANCED SETTINGS", ""));
+    gui.add(frameGrain.setup("Detection frameGrain", 2, 1, 6)); 
+    gui.add(pixelsResize.setup("Detction pixelsResize", 0.75, 0.2, 1.0));
+    gui.add(maxMovementThreshold.setup("maxMovementThreshold", 0.75, 0.5, 1.0));
+    gui.add(minMovementThreshold.setup("minMovementThreshold", 0.05, 0.01, 0.2));
+    gui.add(expiryTime.setup("expiryTime", 60000, 30000, 120000));
+
+    // Load Saved Settings
+    loadSettings();
 
     // Initialize YOLO model 
     if (!yolo.setup("model", "classes.txt")) { 
@@ -136,7 +140,6 @@ void ofApp::update() {
                 detectionTimestamp = ofGetElapsedTimeMillis(); // Start timer
             }
         } else if (pendingDetectionState && ofGetElapsedTimeMillis() - detectionTimestamp > transInTimeout && !isTransitioning) {
-            // ofLogNotice() << "transInTimeout";
             isTransitioning = true;
             transitionStartTime = ofGetElapsedTimeMillis();
             // Reset progress to start a new transition if needed
@@ -150,7 +153,6 @@ void ofApp::update() {
                 detectionTimestamp = ofGetElapsedTimeMillis(); // Start timer
             }
         } else if (pendingDetectionState && ofGetElapsedTimeMillis() - detectionTimestamp > transOutTimeout && !isTransitioning) {
-            // ofLogNotice() << "transOutTimeout";
             isTransitioning = true;
             transitionStartTime = ofGetElapsedTimeMillis();
             // Reset progress to start a new transition if needed
@@ -165,14 +167,12 @@ void ofApp::update() {
         progress = rampx / static_cast<float>(transDuration);
         progress = ofClamp(progress, 0.0, 1.0);
         if (personDetected) {
-            // ofLogNotice() << "person detected ramp";
             rampy = ofLerp(0, 1, progress);
             if (progress == 0) {
                 mergeCells();
                 offsetCells();
             }
         } else {
-            // ofLogNotice() << "person undetected ramp";
             rampy = ofLerp(1, 0, progress);
             if (progress == 1) {
                 for (int row = 0; row < gridRows; ++row) { // Resetting mergeCells
@@ -213,21 +213,20 @@ void ofApp::update() {
         scaleFactor = 1 / static_cast<float>(zoomFactor);
         lastZoomFactor = zoomFactor;
     }
+    
+    // Check if any of the detectionArea coordinates have changed 
+    if (detectionAreaTopLeftX != lastDetectionAreaTopLeftX || detectionAreaTopLeftY != lastDetectionAreaTopLeftY || detectionAreaBottomRightX != lastDetectionAreaBottomRightX || detectionAreaBottomRightY != lastDetectionAreaBottomRightY) {
+        detectionAreaWidth = detectionAreaBottomRightX - detectionAreaTopLeftX;
+        detectionAreaHeight = detectionAreaBottomRightY - detectionAreaTopLeftY;
+
+        detectionArea.set(detectionAreaTopLeftX, detectionAreaTopLeftY, detectionAreaWidth, detectionAreaHeight);
+    }
 }
 
 void ofApp::processFrame(ofPixels pixels) {
-    // Crop detection area
-    detectionAreaTopLeft.x = detectionAreaTopLeftX;
-    detectionAreaTopLeft.y = detectionAreaTopLeftY; 
-    detectionAreaBottomRight.x = detectionAreaBottomRightX;
-    detectionAreaBottomRight.y = detectionAreaBottomRightY;
-
-    detectionAreaWidth = detectionAreaBottomRight.x - detectionAreaTopLeft.x;
-    detectionAreaHeight = detectionAreaBottomRight.y - detectionAreaTopLeft.y;
-
-    pixels.crop(detectionAreaTopLeft.x, detectionAreaTopLeft.y, detectionAreaWidth, detectionAreaHeight);
+    pixels.crop(detectionAreaTopLeftX, detectionAreaTopLeftY, detectionAreaWidth, detectionAreaHeight);
     
-    pixels.resize(inputWidth * 0.75, inputHeight * 0.75);
+    pixels.resize(inputWidth * pixelsResize, inputHeight * pixelsResize);
     yolo.setInput(pixels);
     yolo.update();
 
@@ -276,7 +275,6 @@ void ofApp::processFrame(ofPixels pixels) {
     for (auto& trackedPerson : trackedPeople) { // Checking if this person is still active
         if ((currentTime - trackedPerson.moveTimestamp) < inactiveTimeout) {
             activePersonCount++; 
-            // ofLogNotice() << "trackedPerson.size: " << trackedPerson.size;
             if (trackedPerson.size > domSize) {
                 domSize = trackedPerson.size;
                 targetFocus = trackedPerson.position;
@@ -288,14 +286,11 @@ void ofApp::processFrame(ofPixels pixels) {
         activePersonCount =  0; 
         personDetected = false; 
     }
-
-    // ofLogNotice() << "targetFocus: " << targetFocus;
-    // ofLogNotice() << "activePersonCount: " << activePersonCount;
 }
 
 void ofApp::updateGrid() {
     float prob = ofRandom(1.0);
-    if (prob < maxGridProbability) { // Maximum grid size with given probability 
+    if (prob < maxGridProbability * 0.01) { // Maximum grid size with given probability 
         gridRows = maxRow; 
         gridCols = maxCol;
     } else {
@@ -403,8 +398,8 @@ void ofApp::draw() {
                 focusWidth = focusHeight * cellDrawAspectRatio;
             }
 
-            offsetX = cellWidth * offsetFactors[row][col].x;
-            offsetY = cellHeight * offsetFactors[row][col].y;
+            offsetX = imageWidth * offsetFactors[row][col].x;
+            offsetY = imageHeight * offsetFactors[row][col].y;
             
             minNthFocusX = nthColX + (cellWidth * 0.5); 
             minNthFocusY = nthRowY + (cellHeight * 0.5);
@@ -422,24 +417,40 @@ void ofApp::draw() {
             
             if (cellOutlineWidth != 0) {
                 ofNoFill();
-                ofColor outlineColor(outlineR, outlineG, outlineB);
+                ofColor outlineColor(outlineR, outlineG, outlineB, 255);
                 ofSetColor(outlineColor);
                 ofSetLineWidth(cellOutlineWidth);
                 ofDrawRectangle(nthColX, nthRowY, cellDrawWidth, cellDrawHeight);
-                ofSetColor(255, 255, 255);  
-            }          
+                ofSetColor(255, 255, 255);
+            }
         }
     }
     ofPopMatrix();
 
     if (showGui) {
         gui.draw();
+    
+        ofPushMatrix();
+        ofTranslate(outputWidth * 0.375, 0);
+
+        ofScale(cameraFOVscaleFactor, cameraFOVscaleFactor);
+        grabber.draw(0, 0);
+
+        ofSetColor(255, 0, 0);
+        ofNoFill();
+        ofDrawRectangle(detectionArea);
+        ofPopMatrix();
+        ofSetColor(255, 255, 255);
     }
 }
 
 void ofApp::keyPressed(int key) {
     if (key == 'g' || key == 'G') {
         showGui = !showGui; // Toggle GUI visibility
+    }
+
+    if (key == 'L' && ofGetKeyPressed(OF_KEY_SHIFT)) {
+        loadDefaultSettings();
     }
 }
 
@@ -485,8 +496,10 @@ void ofApp::saveSettings() {
 
     // Save advanced settings
     settings.appendChild("frameGrain").set(frameGrain.getParameter());
+    settings.appendChild("pixelsResize").set(pixelsResize.getParameter());
     settings.appendChild("maxMovementThreshold").set(maxMovementThreshold.getParameter());
     settings.appendChild("minMovementThreshold").set(minMovementThreshold.getParameter());
+    settings.appendChild("trackedPeople.erase").set(expiryTime.getParameter());
 
     xml.save("settings.xml");
 }
@@ -508,7 +521,7 @@ void ofApp::loadSettings() {
 
         gridUpdateInterval = settings.getChild("gridUpdateInterval").getIntValue();
         gridUpdateIntervalUncertainty = settings.getChild("gridUpdateIntervalUncertainty").getIntValue();
-        maxGridProbability = settings.getChild("maxGridProbability").getFloatValue();
+        maxGridProbability = settings.getChild("maxGridProbability").getIntValue();
         max1x2Cell = settings.getChild("max1x2Cell").getIntValue();
         max2x1Cell = settings.getChild("max2x1Cell").getIntValue();
         max2x2Cell = settings.getChild("max2x2Cell").getIntValue();
@@ -523,6 +536,11 @@ void ofApp::loadSettings() {
         detectionAreaTopLeftY = settings.getChild("detectionAreaTopLeftY").getIntValue();
         detectionAreaBottomRightX = settings.getChild("detectionAreaBottomRightX").getIntValue();
         detectionAreaBottomRightY = settings.getChild("detectionAreaBottomRightY").getIntValue();
+        detectionAreaWidth = detectionAreaBottomRightX - detectionAreaTopLeftX; 
+        detectionAreaHeight = detectionAreaBottomRightY - detectionAreaTopLeftY;
+
+        detectionArea.set(detectionAreaTopLeftX, detectionAreaTopLeftY, detectionAreaWidth, detectionAreaHeight);        
+
         minConfidence = settings.getChild("minConfidence").getFloatValue();
         minSize = settings.getChild("minSize").getFloatValue();
         transInTimeout = settings.getChild("transInTimeout").getIntValue();
@@ -530,10 +548,63 @@ void ofApp::loadSettings() {
         inactiveTimeout = settings.getChild("inactiveTimeout").getIntValue();
 
         frameGrain = settings.getChild("frameGrain").getIntValue();
+        pixelsResize = settings.getChild("pixelsResize").getFloatValue();
         maxMovementThreshold = settings.getChild("maxMovementThreshold").getFloatValue();
         minMovementThreshold = settings.getChild("minMovementThreshold").getFloatValue();
+        expiryTime = settings.getChild("trackedPeople.erase").getIntValue();
     }
 }
+
+void ofApp::loadDefaultSettings() {
+    // Reset Display settings
+    flipImage = true;  // Default state for image flipping
+
+    // Reset Grid settings
+    outlineR = 0;
+    outlineG = 0;
+    outlineB = 0;
+    cellOutlineWidth = 0;
+    minRow = 2;
+    minCol = 2;
+    maxRow = 64;
+    maxCol = 64;
+
+    // Reset Animation settings
+    gridUpdateInterval = 5000;
+    gridUpdateIntervalUncertainty = 20;
+    maxGridProbability = 20;
+    max1x2Cell = 2;
+    max2x1Cell = 2;
+    max2x2Cell = 2;
+    bigCellScale = 2;
+    zoomFactor = 4;
+    offsetFactorX = 0.2;
+    offsetFactorY = 0.05;
+    transDuration = 1000;
+    focusFollowSpeed = 0.05;
+
+    // Reset Detection settings
+    detectionAreaTopLeftX = 0;
+    detectionAreaTopLeftY = 0;
+    detectionAreaBottomRightX = inputWidth;
+    detectionAreaBottomRightY = inputHeight;
+
+    detectionArea.set(detectionAreaTopLeftX, detectionAreaTopLeftY, detectionAreaWidth, detectionAreaHeight);
+
+    minConfidence = 0.5;
+    minSize = 0.2;
+    transInTimeout = 0;
+    transOutTimeout = 2500;
+    inactiveTimeout = 10000;
+
+    // Reset Advanced Settings
+    frameGrain = 2;
+    pixelsResize = 0.75;
+    maxMovementThreshold = 0.75;
+    minMovementThreshold = 0.02;
+    expiryTime = 60000;
+}
+
 
 void ofApp::exit() {
     if (grabber.isInitialized()) {

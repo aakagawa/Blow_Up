@@ -26,6 +26,7 @@ public:
 
     void saveSettings();
     void loadSettings();
+    void loadDefaultSettings();
 
     void processFrame(ofPixels pixels);
 
@@ -39,7 +40,6 @@ private:
     ofxPanel gui;
     bool showGui = true;
     ofxLabel displaySettings, gridSettings, animationSettings, detectionSettings, advancedSettings; 
-    
     string settingsFile = "settings.xml";
 
     ofVideoGrabber grabber; 
@@ -54,6 +54,7 @@ private:
     ofxToggle flipImage;
 
     ofxIntField frameGrain;
+    ofxFloatField pixelsResize;
 
     std::future<void> futureResult; // For asynchronous frame processing
 
@@ -72,10 +73,11 @@ private:
     glm::vec2 targetFocus; 
     ofxFloatField focusFollowSpeed; 
 
-    glm::vec2 detectionAreaTopLeft;
-    glm::vec2 detectionAreaBottomRight; 
-    ofxIntField detectionAreaTopLeftX, detectionAreaTopLeftY;
-    ofxIntField detectionAreaBottomRightX, detectionAreaBottomRightY;
+    ofRectangle cameraFOV;
+    float cameraFOVscaleFactor = 0.375;
+    ofRectangle detectionArea; 
+    ofxIntSlider detectionAreaTopLeftX, detectionAreaTopLeftY, detectionAreaBottomRightX, detectionAreaBottomRightY;
+    int lastDetectionAreaTopLeftX, lastDetectionAreaTopLeftY, lastDetectionAreaBottomRightX, lastDetectionAreaBottomRightY;
     int detectionAreaWidth, detectionAreaHeight;
 
     std::vector<TrackedPerson> trackedPeople;
@@ -95,7 +97,7 @@ private:
 
     int activePersonCount;
     ofxIntField inactiveTimeout; 
-    int expiryTime = 30000; 
+    ofxIntField expiryTime;
 
     static const int MAX_ROWS = 256;
     static const int MAX_COLS = 256;
@@ -103,7 +105,7 @@ private:
     ofxIntField minRow, minCol, maxRow, maxCol;
     ofxIntField gridUpdateInterval, gridUpdateIntervalUncertainty;
     int gridRefreshInterval;
-    ofxFloatField maxGridProbability; 
+    ofxIntField maxGridProbability; 
     float cellWidth, cellHeight;
 
     ofxIntField outlineR, outlineG, outlineB;
