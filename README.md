@@ -11,7 +11,7 @@ Blow Up v3.0.2 is an advanced real-time video processing application developed w
 ### MacOS
 1. **Prepare your environment:**
    - Ensure openFrameworks v0.12.0 is installed.
-   - Clone or download the [ofxTensorFlow2 repository](https://github.com/zkmkarlsruhe/ofxTensorFlow2) to your openFrameworks addons folder.
+   - Clone or download the [ofxTensorFlow2 repository](https://github.com/zkmkarlsruhe/ofxTensorFlow2) to your openFrameworks addons folder. (Replace OF_ROOT with the path to your openFrameworks installation).
 ```
 cd OF_ROOT/addons
 git clone https://github.com/zkmkarlsruhe/ofxTensorFlow2.git
@@ -30,7 +30,7 @@ git submodule update --init --recursive
         `lib/` to `/usr/local/lib/` 
 
 3. **Configure YOLOv4:**
-    - Copy YOLOv4 example data to your project folder.
+    - Copy YOLOv4 example data to your project folder. (Replace PROJECT with the path to your openFrameworks project folder).
 ```
 cd ofxTensorFlow2
 cp -r example_yolo_v4/bin/data/* PROJECT_ROOT/bin/data/
@@ -45,7 +45,7 @@ make Release
 make RunRelease
 ```
 
-## GUI Instructions
+## App GUI Instructions
 
 - **Press key "g" to show/hide GUI.**
 - **Press "shift + l" to load default settings.**
@@ -67,7 +67,7 @@ make RunRelease
 ### Animation Settings
 - **Grid Update Interval:** Time between grid updates in milliseconds (5000-600000 ms i.e. 5 seconds-10 minutes).
 - **Grid Update Interval Uncertainty:** Percentage uncertainty in the grid update interval (0-100%).  
-e.g. Grid Update Interval = 5000, Grid Update Interval Uncertainaty = 50, means 5000 ± 2500.
+e.g. Grid Update Interval = 5000 ms, Grid Update Interval Uncertainaty = 50%, means 5000 ± 2500.
 - **Probability of Maximum Grid:** Probability of the grid being at maximum dimensions (0-100%).
 - **Max Number of 1x2 Cells:** Maximum number of 1x2 cells allowed in the grid (0-10).
 - **Max Number of 2x1 Cells:** Maximum number of 2x1 cells allowed in the grid (0-10).
@@ -86,8 +86,8 @@ e.g. Grid Update Interval = 5000, Grid Update Interval Uncertainaty = 50, means 
 - **Detection Area Bottom Right Y:** Y-coordinate for the bottom right corner of the detection area; defaults to maximum height (0 to input height).
 - **Required Confidence:** Minimum confidence level required to detect a person (0.0-0.9).
 - **Required Size:** Minimum size required for a person to be considered detected as a fraction of the total detection area (0.0-0.9).
-- **Transition In Timeout:** Timeout before transitioning after detection, in milliseconds (0-10000 ms).
-- **Transition Out Timeout:** Timeout before transitioning after undetection, in milliseconds (0-10000 ms).
+- **Transition In Timeout:** Timeout before transition after detection, in milliseconds (0-10000 ms).
+- **Transition Out Timeout:** Timeout before transition after undetection, in milliseconds (0-10000 ms).
 - **Time Until Inactive Person is Considered Undetected:** Time until an inactive person is considered undetected, in milliseconds (2000-60000 ms).
 
 ### Advanced Settings 
